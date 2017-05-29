@@ -24,7 +24,6 @@ public class ChildTraffickedEventScript : EventScript
     public override string NoButtonText { get { return IncomeManager.Money >= Cost ? "No" : "OK"; } }
     protected override string OnShowAudioClipPath { get { return "Audio/ChildTrafficked"; } }
     protected override string OnYesAudioClipPath { get { return "Audio/Money"; } }
-    protected override string OnNoAudioClipPath { get { return "Audio/Death"; } }
 
     private const int Cost = 615000;
     private Child childThatWillBeTaken;
