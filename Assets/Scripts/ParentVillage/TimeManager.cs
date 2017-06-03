@@ -68,7 +68,11 @@ public class TimeManager : MonoBehaviour
 
     private void QuarterYear()
     {
-        dialogScript.QueueEvent(new GiveBirthToChildEvent());
+        if (ChildManager.Instance.CanHaveChild)
+        {
+            dialogScript.QueueEvent(new GiveBirthToChildEvent());
+        }
+
         quarterYearReached = true;
     }
 

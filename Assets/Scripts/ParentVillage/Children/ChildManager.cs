@@ -21,6 +21,7 @@ public class ChildManager
     public const int MaxChildCount = 7;
     public float ChildDegredation = 10;
 
+    public bool CanHaveChild { get { return currentChildIndex < MaxChildCount; } }
     public int ChildCount { get { return Children.Count(x => x.State == Child.ChildState.kAlive); } }
     public int ChildrenGraduated { get { return Children.Count(x => x.State == Child.ChildState.kGraduated); } }
     public Child SelectedChild { get { return Children.Find(x => x.IsSelected); } }

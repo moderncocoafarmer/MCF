@@ -13,8 +13,6 @@ public abstract class EventScript
     public abstract string Name { get; }
     public abstract string Description { get; }
     public virtual float TimeOut { get { return float.MaxValue; } }
-    public virtual string YesButtonText { get { return "Yes"; } }
-    public virtual string NoButtonText { get { return "No"; } }
     public virtual bool ChoicesEnabled { get { return false; } }
 
     public virtual bool DataImplemented { get { return false; } }
