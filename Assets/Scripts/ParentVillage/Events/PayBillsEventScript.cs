@@ -29,8 +29,7 @@ public class PayBillsEventScript : EventScript
     // $170 a month for 85 m2 apartment
 
     public override float TimeOut { get { return IncomeManager.Money < Cost ? 6 : float.MaxValue; } }
-    public override bool YesButtonEnabled { get { return IncomeManager.Money >= Cost; } }
-    public override string NoButtonText { get { return IncomeManager.Money >= Cost ? "No" : "OK"; } }
+    public override bool ChoicesEnabled { get { return IncomeManager.Money >= Cost; } }
     protected override string OnYesAudioClipPath { get { return "Audio/Money"; } }
 
     public int Cost { get { return 430500 + 31980 * ChildManager.ChildCount; } }

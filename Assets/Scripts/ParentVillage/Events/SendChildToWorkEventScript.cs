@@ -29,8 +29,7 @@ public class SendChildToWorkEventScript : InteractableBuildingEventScript
     private const int Salary = 116850;
     private static bool childPaid = true;
 
-    protected override bool YesButtonEnabledImpl { get { return true; } }
-    protected override string NoButtonTextImpl { get { return "No"; } }
+    protected override bool ChoicesEnabledImpl { get { return true; } }
     public override int CostToPerform { get { return 0; } }
     protected override float LockTime { get { return TimeManager.SecondsPerYear; } }
     protected override string OnShowAudioClipPath { get { return "Audio/Work"; } }

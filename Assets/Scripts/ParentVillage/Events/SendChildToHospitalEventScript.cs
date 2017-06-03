@@ -44,15 +44,8 @@ public class SendChildToHospitalEventScript : InteractableBuildingEventScript
     public const float HealthThreshold = 0.5f * Child.MaxHealth;
 
     public override float TimeOut { get { return (ChildManager.SelectedChild != null && ChildManager.SelectedChild.Health <= HealthThreshold && IncomeManager.Money >= Cost) ? float.MaxValue : 4; } }
-
-    protected override string NoButtonTextImpl
-    {
-        get
-        {
-            return (ChildManager.SelectedChild.Health <= HealthThreshold && IncomeManager.Money >= Cost) ? "No" : "OK";
-        }
-    }
-    protected override bool YesButtonEnabledImpl { get { return ChildManager.SelectedChild.Health <= HealthThreshold && IncomeManager.Money >= Cost; } }
+    
+    protected override bool ChoicesEnabledImpl { get { return ChildManager.SelectedChild.Health <= HealthThreshold && IncomeManager.Money >= Cost; } }
     public override int CostToPerform { get { return ChildManager.SelectedChild.Health <= HealthThreshold && IncomeManager.Money >= Cost ? Cost : 0; } }
     protected override float LockTime { get { return TimeManager.SecondsPerYear / 3; } }
     protected override string OnShowAudioClipPath { get { return "Audio/Hospital"; } }

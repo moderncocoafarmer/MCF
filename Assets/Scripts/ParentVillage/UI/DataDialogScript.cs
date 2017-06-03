@@ -14,13 +14,11 @@ public class DataDialogScript : MonoBehaviour
     private BarScript educationBar;
     private BarScript happinessBar;
 
-    private EventDialogScript eventDialog;
     private GameObject dataDialogUI;
 
     // Use this for initialization
     void Awake ()
     {
-        eventDialog = GameObject.Find(EventDialogScript.EventDialogName).GetComponent<EventDialogScript>();
         dataDialogUI = transform.Find(DataDialogName + "UI").gameObject;
 
         Transform textGrouper = dataDialogUI.transform.FindChild("TextGrouper");

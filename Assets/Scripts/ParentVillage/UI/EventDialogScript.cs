@@ -16,6 +16,7 @@ public class EventDialogScript : MonoBehaviour
     private Text descriptionUI;
     private GameObject yesButton;
     private GameObject noButton;
+    private GameObject closeButton;
     private Text yesText;
     private Text noText;
     private EventScript CurrentEvent { get; set; }
@@ -44,6 +45,7 @@ public class EventDialogScript : MonoBehaviour
         descriptionUI = eventDialogUI.transform.Find("EventDescription").GetComponent<Text>();
         yesButton = eventDialogUI.transform.Find("YesButton").gameObject;
         noButton = eventDialogUI.transform.Find("NoButton").gameObject;
+        closeButton = eventDialogUI.transform.FindChild("CloseButton").gameObject;
         yesText = yesButton.transform.Find("YesText").GetComponent<Text>();
         noText = noButton.transform.Find("NoText").GetComponent<Text>();
 
@@ -99,15 +101,15 @@ public class EventDialogScript : MonoBehaviour
                 audioSource.Play();
             }
 
-            bool yesButtonEnabled = CurrentEvent.YesButtonEnabled;
-            bool noButtonEnabled = CurrentEvent.NoButtonEnabled;
+            bool choicesEnabled = CurrentEvent.ChoicesEnabled;
 
             nameUI.text = CurrentEvent.Name;
             descriptionUI.text = CurrentEvent.Description;
-            yesButton.SetActive(yesButtonEnabled);
-            noButton.SetActive(noButtonEnabled);
-            yesText.text = yesButtonEnabled ? CurrentEvent.YesButtonText : "";
-            noText.text = noButtonEnabled ? CurrentEvent.NoButtonText : "";
+            yesButton.SetActive(choicesEnabled);
+            noButton.SetActive(choicesEnabled);
+            closeButton.SetActive(!choicesEnabled);
+            yesText.text = choicesEnabled ? CurrentEvent.YesButtonText : "";
+            noText.text = choicesEnabled ? CurrentEvent.NoButtonText : "";
             buttonEffects.SetActive(CurrentEvent.DataImplemented);
 
             if (CurrentEvent.DataImplemented)

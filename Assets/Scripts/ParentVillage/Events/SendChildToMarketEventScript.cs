@@ -35,8 +35,7 @@ public class SendChildToMarketEventScript : InteractableBuildingEventScript
     public override int CostToPerform { get { return 31980 * ChildManager.ChildCount; } }
     protected override float LockTime { get { return TimeManager.SecondsPerYear * 0.25f; } }
 
-    protected override bool YesButtonEnabledImpl { get { return IncomeManager.Money >= CostToPerform; } }
-    protected override string NoButtonTextImpl { get { return IncomeManager.Money >= CostToPerform ? "No" : "OK"; } }
+    protected override bool ChoicesEnabledImpl { get { return IncomeManager.Money >= CostToPerform; } }
 
     protected override string OnShowAudioClipPath { get { return "Audio/Market"; } }
 

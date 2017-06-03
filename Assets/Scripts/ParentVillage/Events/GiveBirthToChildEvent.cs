@@ -23,8 +23,7 @@ public class GiveBirthToChildEvent : EventScript
     }
 
     public override float TimeOut { get { return ChildManager.ChildCount > Threshold ? float.MaxValue : 4; } }
-    public override bool YesButtonEnabled { get { return ChildManager.ChildCount > Threshold; } }
-    public override string NoButtonText { get { return ChildManager.ChildCount > Threshold ? "No" : "OK"; } }
+    public override bool ChoicesEnabled { get { return ChildManager.ChildCount > Threshold; } }
     protected override string OnShowAudioClipPath { get { return ChildManager.ChildCount <= Threshold ? "Audio/Birth" : null; } }
     protected override string OnYesAudioClipPath { get { return "Audio/Birth"; } }
     protected override string OnNoAudioClipPath { get { return ChildManager.ChildCount > Threshold ? "Audio/Death" : null; } }
@@ -42,8 +41,9 @@ public class GiveBirthToChildEvent : EventScript
 
     protected override void OnNo()
     {
-        if (!YesButtonEnabled)
+        if (!ChoicesEnabled)
         {
+            // If we don't have choices enabled we actually want to perform the behaviour of the yes button
             OnYes();
         }
         else

@@ -28,26 +28,9 @@ public abstract class InteractableBuildingEventScript : EventScript
     protected abstract string ChildSelectedDescription { get; }
     protected abstract string BuildingDescription { get; }
 
-    public sealed override bool YesButtonEnabled
-    {
-        get
-        {
-            return ChildManager.SelectedChild == null ? false : YesButtonEnabledImpl;
-        }
-    }
-
-    protected abstract bool YesButtonEnabledImpl { get; }
-
-    public sealed override string NoButtonText
-    {
-        get
-        {
-            return ChildManager.SelectedChild == null ? "OK" : NoButtonTextImpl;
-        }
-    }
-
-    protected abstract string NoButtonTextImpl { get; }
-
+    public sealed override bool ChoicesEnabled { get { return ChildManager.SelectedChild == null ? false : ChoicesEnabledImpl; } }
+    protected abstract bool ChoicesEnabledImpl { get; }
+    
     public abstract int CostToPerform { get; }
     public abstract BuildingType BuildingType { get; }
     protected abstract Vector3 BuildingLocation { get; }

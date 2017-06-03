@@ -26,8 +26,8 @@ public class SendChildToMosqueEventScript : InteractableBuildingEventScript
     // Hopefully inspires the player to keep sending a child here to keep getting benefits to the family.
 
     public override string YesButtonText { get { return "Send " + ChildManager.SelectedChild.Name; } }
-    protected override bool YesButtonEnabledImpl { get { return true; } }
-    protected override string NoButtonTextImpl { get { return "Leave"; } }
+    protected override bool ChoicesEnabledImpl { get { return true; } }
+    public override string NoButtonText { get { return "Leave"; } }
 
     public override int CostToPerform { get { return 0; } }
     protected override float LockTime { get { return TimeManager.SecondsPerYear * 0.25f; } }

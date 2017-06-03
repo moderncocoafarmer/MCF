@@ -20,8 +20,7 @@ public class ChildTraffickedEventScript : EventScript
         }
     }
 
-    public override bool YesButtonEnabled { get { return IncomeManager.Money >= Cost; } }
-    public override string NoButtonText { get { return IncomeManager.Money >= Cost ? "No" : "OK"; } }
+    public override bool ChoicesEnabled { get { return IncomeManager.Money >= Cost; } }
     protected override string OnShowAudioClipPath { get { return "Audio/ChildTrafficked"; } }
     protected override string OnYesAudioClipPath { get { return "Audio/Money"; } }
 
