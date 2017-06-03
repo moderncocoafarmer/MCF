@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TimeManager : MonoBehaviour
 {
-    public const float SecondsPerYear = 45;
+    public const float SecondsPerYear = 10;
 
     public static int CurrentYearNumber { get { return (int)(TotalGameTimePassed / SecondsPerYear) + 1; } }
     public static float TotalGameTimePassed { get; private set; }
@@ -68,7 +68,7 @@ public class TimeManager : MonoBehaviour
 
     private void QuarterYear()
     {
-        if (ChildManager.Instance.CanHaveChild)
+        if (ChildManager.CanHaveChild)
         {
             dialogScript.QueueEvent(new GiveBirthToChildEvent());
         }

@@ -86,7 +86,7 @@ public class EventDialogScript : MonoBehaviour
             timePausedOnEventShow = TimeManager.Paused;
             TimeManager.Paused = true;
             CurrentEvent = events.Dequeue();
-            Child selectedChild = ChildManager.Instance.SelectedChild;
+            Child selectedChild = ChildManager.SelectedChild;
 
             if (CurrentEvent.OnShowAudioClip != null)
             {
@@ -108,7 +108,7 @@ public class EventDialogScript : MonoBehaviour
 
             bool choicesEnabled = CurrentEvent.ChoicesEnabled;
             yesButtonPanel.SetActive(choicesEnabled);
-            yesText.text = (choicesEnabled && selectedChild != null) ? ("Send " + ChildManager.Instance.SelectedChild.Name) : "";
+            yesText.text = (choicesEnabled && selectedChild != null) ? ("Send " + ChildManager.SelectedChild.Name) : "";
 
             eventDialogUI.SetActive(true);
 

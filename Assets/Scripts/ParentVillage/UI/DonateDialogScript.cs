@@ -30,7 +30,7 @@ public class DonateDialogScript : MonoBehaviour {
         // 770 CFA to 1 pound
         int actualAmount = amountToPay == 0 ? 770 : 5 * 770 * amountToPay;
         IncomeManager.AddMoney(actualAmount);
-        ChildManager.Instance.ApplyEventToAllChildren(new DataPacket(0, 100, 0, 100));
+        ChildManager.ApplyEventToAllChildren(new DataPacket(0, 100, 0, 100));
         GameObject.Find("MoneyText").GetComponent<Text>().color = new Color(34.0f / 255, 139.0f / 255, 34.0f / 255, 1.0f);
 
         Close();

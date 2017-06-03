@@ -1,4 +1,6 @@
-﻿public static class IncomeManager
+﻿using UnityEngine;
+
+public class IncomeManager : MonoBehaviour
 {
     public enum IncomeLevel
     {
@@ -35,9 +37,9 @@
 
         }
     }
-    public static int IncomeFromChildren { get { return 615000 * ChildManager.Instance.ChildrenGraduated; } }
+    public static int IncomeFromChildren { get { return 615000 * ChildManager.ChildrenGraduated; } }
 
-    static IncomeManager()
+    public IncomeManager()
     {
         CurrentIncomeLevel = IncomeLevel.kLow;
         Money = StartingMoney;

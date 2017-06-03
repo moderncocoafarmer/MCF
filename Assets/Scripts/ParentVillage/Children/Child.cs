@@ -30,7 +30,7 @@ public class Child : IData
             education = value;
             if (education >= MaxEducation)
             {
-                ChildManager.Instance.GraduateChild(this);
+                ChildManager.GraduateChild(this);
             }
         }
     }
@@ -44,7 +44,7 @@ public class Child : IData
             health = value;
             if (health <= 0)
             {
-                ChildManager.Instance.KillChild(this);
+                ChildManager.KillChild(this);
             }
         }
     }

@@ -19,15 +19,15 @@ public class ChildManagerUIScript : MonoBehaviour {
             ui.transform.localPosition = new Vector3(Spacing * i, 0, 0);
 
             ChildUIScript uiScript = ui.GetComponentInChildren<ChildUIScript>();
-            uiScript.Child = ChildManager.Instance.GetChild(i);
+            uiScript.Child = ChildManager.GetChild(i);
             uiScript.gameObject.SetActive(false);
 
             childUIs.Add(uiScript);
         }
 
-        ChildManager.Instance.ChildAdded += ChildManager_ChildAdded;
-        ChildManager.Instance.ChildKilled += ChildManager_ChildKilled;
-        ChildManager.Instance.ChildGraduated += ChildManager_ChildGraduated;
+        ChildManager.ChildAdded += ChildManager_ChildAdded;
+        ChildManager.ChildKilled += ChildManager_ChildKilled;
+        ChildManager.ChildGraduated += ChildManager_ChildGraduated;
     }
 
     private void ChildManager_ChildAdded(Child child)
@@ -59,8 +59,8 @@ public class ChildManagerUIScript : MonoBehaviour {
 
     private void OnDestroy()
     {
-        ChildManager.Instance.ChildAdded -= ChildManager_ChildAdded;
-        ChildManager.Instance.ChildKilled -= ChildManager_ChildKilled;
-        ChildManager.Instance.ChildGraduated -= ChildManager_ChildGraduated;
+        ChildManager.ChildAdded -= ChildManager_ChildAdded;
+        ChildManager.ChildKilled -= ChildManager_ChildKilled;
+        ChildManager.ChildGraduated -= ChildManager_ChildGraduated;
     }
 }

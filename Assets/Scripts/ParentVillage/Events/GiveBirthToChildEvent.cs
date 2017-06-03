@@ -13,7 +13,7 @@ public class GiveBirthToChildEvent : EventScript
     {
         get
         {
-            if (ChildManager.Instance.ChildCount <= Threshold)
+            if (ChildManager.ChildCount <= Threshold)
             {
                 return "You've had a baby.";
             }
@@ -22,17 +22,17 @@ public class GiveBirthToChildEvent : EventScript
         }
     }
 
-    public override float TimeOut { get { return ChildManager.Instance.ChildCount > Threshold ? float.MaxValue : 4; } }
-    public override bool ChoicesEnabled { get { return ChildManager.Instance.ChildCount > Threshold; } }
-    protected override string OnShowAudioClipPath { get { return ChildManager.Instance.ChildCount <= Threshold ? "Audio/Birth" : null; } }
+    public override float TimeOut { get { return ChildManager.ChildCount > Threshold ? float.MaxValue : 4; } }
+    public override bool ChoicesEnabled { get { return ChildManager.ChildCount > Threshold; } }
+    protected override string OnShowAudioClipPath { get { return ChildManager.ChildCount <= Threshold ? "Audio/Birth" : null; } }
     protected override string OnYesAudioClipPath { get { return "Audio/Birth"; } }
-    protected override string OnNoAudioClipPath { get { return ChildManager.Instance.ChildCount > Threshold ? "Audio/Death" : null; } }
+    protected override string OnNoAudioClipPath { get { return ChildManager.ChildCount > Threshold ? "Audio/Death" : null; } }
 
     protected override void OnYes()
     {
-        ChildManager.Instance.GiveBirthToChild();
+        ChildManager.GiveBirthToChild();
 
-        if (ChildManager.Instance.ChildCount > ChildManager.MaxChildCount)
+        if (ChildManager.ChildCount > ChildManager.MaxChildCount)
         {
             // If this child brings us over the max, we queue an event about the child leaving home
             GameObject.Find(EventDialogScript.EventDialogName).GetComponent<EventDialogScript>().QueueEvent(new ChildLeftHomeEventScript());

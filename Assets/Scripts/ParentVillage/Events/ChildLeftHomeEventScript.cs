@@ -23,13 +23,13 @@ public class ChildLeftHomeEventScript : EventScript
     {
         // Since this event is fired when a child cap is reached from a new child, we do not include the last child
         Random random = new Random();
-        childThatWillLeave = ChildManager.Instance.GetChild(random.Next(0, ChildManager.MaxChildCount - 1));
+        childThatWillLeave = ChildManager.GetChild(random.Next(0, ChildManager.MaxChildCount - 1));
     }
 
     protected override void OnNo()
     {
         base.OnNo();
 
-        ChildManager.Instance.KillChild(childThatWillLeave);
+        ChildManager.KillChild(childThatWillLeave);
     }
 }

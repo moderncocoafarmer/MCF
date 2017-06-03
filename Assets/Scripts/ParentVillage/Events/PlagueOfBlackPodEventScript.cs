@@ -22,7 +22,7 @@ public class PlagueOfBlackPodEventScript : EventScript
     {
         base.OnNo();
 
-        Child oldSelectedChild = ChildManager.Instance.SelectedChild;
+        Child oldSelectedChild = ChildManager.SelectedChild;
         if (oldSelectedChild != null)
         {
             oldSelectedChild.IsSelected = false;

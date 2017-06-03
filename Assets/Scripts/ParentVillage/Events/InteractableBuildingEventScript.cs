@@ -20,7 +20,7 @@ public abstract class InteractableBuildingEventScript : EventScript
     {
         get
         {
-            return ChildManager.Instance.SelectedChild == null ? BuildingDescription + "\n\nSelect a child using the icons at the top and click on this building to send them here."
+            return ChildManager.SelectedChild == null ? BuildingDescription + "\n\nSelect a child using the icons at the top and click on this building to send them here."
                 : ChildSelectedDescription;
         }
     }
@@ -28,7 +28,7 @@ public abstract class InteractableBuildingEventScript : EventScript
     protected abstract string ChildSelectedDescription { get; }
     protected abstract string BuildingDescription { get; }
 
-    public sealed override bool ChoicesEnabled { get { return ChildManager.Instance.SelectedChild == null ? false : ChoicesEnabledImpl; } }
+    public sealed override bool ChoicesEnabled { get { return ChildManager.SelectedChild == null ? false : ChoicesEnabledImpl; } }
     protected abstract bool ChoicesEnabledImpl { get; }
     
     public abstract int CostToPerform { get; }
@@ -55,7 +55,7 @@ public abstract class InteractableBuildingEventScript : EventScript
 
         IncomeManager.AddMoney(-CostToPerform);
 
-        Child child = ChildManager.Instance.SelectedChild;
+        Child child = ChildManager.SelectedChild;
         child.LockIn(BuildingType);
 
         LockedInChildren.Add(child);

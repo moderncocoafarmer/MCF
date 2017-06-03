@@ -58,6 +58,6 @@ public class SendChildToMosqueEventScript : InteractableBuildingEventScript
     {
         // Undo the incremental changes on this child
         child.Apply(new DataPacket(0, -3, -2, -5));
-        ChildManager.Instance.ApplyEventToAllChildren(new DataPacket(0, 3, 2, 5));
+        ChildManager.ApplyEventToAllChildren(new DataPacket(0, 3, 2, 5));
     }
 }

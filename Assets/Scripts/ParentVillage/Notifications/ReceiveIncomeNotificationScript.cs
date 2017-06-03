@@ -12,7 +12,7 @@ public class ReceiveIncomeNotificationScript : NotificationScript
         get
         {
             string income = "Your husband's annual salary of CFA " + IncomeManager.CurrentIncome.ToString() + " has been paid.";
-            if (ChildManager.Instance.ChildrenGraduated > 0)
+            if (ChildManager.ChildrenGraduated > 0)
             {
                 income += "  Your children send you back CFA " + IncomeManager.IncomeFromChildren.ToString();
             }

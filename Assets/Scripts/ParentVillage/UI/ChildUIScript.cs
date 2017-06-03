@@ -29,8 +29,8 @@ public class ChildUIScript : MonoBehaviour
     
 	void Start ()
     {
-        ChildManager.Instance.ChildSelected += ChildManager_ChildSelected;
-        ChildManager.Instance.ChildDeselected += ChildManager_ChildDeselected;
+        ChildManager.ChildSelected += ChildManager_ChildSelected;
+        ChildManager.ChildDeselected += ChildManager_ChildDeselected;
 
         Transform icon = transform.FindChild("Icon");
         uiImage = icon.GetComponent<Image>();
@@ -53,9 +53,9 @@ public class ChildUIScript : MonoBehaviour
             Child.Apply(
                 new DataPacket(
                 0,
-                -ChildManager.Instance.ChildDegredation / TimeManager.SecondsPerYear,
+                -ChildManager.ChildDegredation / TimeManager.SecondsPerYear,
                 0,
-                -ChildManager.Instance.ChildDegredation / TimeManager.SecondsPerYear));
+                -ChildManager.ChildDegredation / TimeManager.SecondsPerYear));
 
             secondTimer = 0;
         }
@@ -69,12 +69,12 @@ public class ChildUIScript : MonoBehaviour
 
         if (Child.IsSelected && !doubleClicked)
         {
-            ChildManager.Instance.DeselectChild(Child);
+            ChildManager.DeselectChild(Child);
         }
         else
         {
             // If we double click, we must always select the child otherwise the data dialog will have nothing to show 
-            ChildManager.Instance.SelectChild(Child);
+            ChildManager.SelectChild(Child);
         }
 
         if (doubleClicked)
@@ -129,10 +129,15 @@ public class ChildUIScript : MonoBehaviour
         uiImage.sprite = GraduatedIcon;
         uiImage.gameObject.transform.localScale *= 0.5f;
     }
-    
+
+    private void OnDestroy()
+    {
+        UnhookEvents();
+    }
+
     private void UnhookEvents()
     {
-        ChildManager.Instance.ChildSelected -= ChildManager_ChildSelected;
-        ChildManager.Instance.ChildDeselected -= ChildManager_ChildDeselected;
+        ChildManager.ChildSelected -= ChildManager_ChildSelected;
+        ChildManager.ChildDeselected -= ChildManager_ChildDeselected;
     }
 }

@@ -2,44 +2,48 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class ChildManager
+public class ChildManager : MonoBehaviour
 {
     public delegate void ChildEventHandler(Child child);
 
-    private static ChildManager instance = new ChildManager();
-    public static ChildManager Instance { get { return instance; } }
+    public static event ChildEventHandler ChildAdded;
+    public static event ChildEventHandler ChildKilled;
+    public static event ChildEventHandler ChildSelected;
+    public static event ChildEventHandler ChildDeselected;
+    public static event ChildEventHandler ChildGraduated;
 
-    public event ChildEventHandler ChildAdded;
-    public event ChildEventHandler ChildKilled;
-    public event ChildEventHandler ChildSelected;
-    public event ChildEventHandler ChildDeselected;
-    public event ChildEventHandler ChildGraduated;
-
-    private int currentChildIndex = 0;
+    private static int currentChildIndex = 0;
     public const int MaxChildCount = 7;
-    public float ChildDegredation = 10;
+    public static float ChildDegredation = 10;
 
-    public bool CanHaveChild { get { return currentChildIndex < MaxChildCount; } }
-    public int ChildCount { get { return Children.Count(x => x.State == Child.ChildState.kAlive); } }
-    public int ChildrenGraduated { get { return Children.Count(x => x.State == Child.ChildState.kGraduated); } }
-    public Child SelectedChild { get { return Children.Find(x => x.IsSelected); } }
+    public static bool CanHaveChild { get { return currentChildIndex < MaxChildCount; } }
+    public static int ChildCount { get { return Children.Count(x => x.State == Child.ChildState.kAlive); } }
+    public static int ChildrenGraduated { get { return Children.Count(x => x.State == Child.ChildState.kGraduated); } }
+    public static Child SelectedChild { get { return Children.Find(x => x.IsSelected); } }
 
-    private List<Child> Children = new List<Child>()
+    private static List<Child> Children;
+
+    public ChildManager()
     {
-        new Child("Adama"),
-        new Child("Oumar"),
-        new Child("Salif"),
-        new Child("Maria"),
-        new Child("Kilia"),
-        new Child("Sekou"),
-        new Child("Siaka"),
-    };
+        currentChildIndex = 0;
+        ChildDegredation = 10;
 
-    private ChildManager() { }
-    
-    public void GiveBirthToChild()
+        Children = new List<Child>()
+        {
+            new Child("Adama"),
+            new Child("Oumar"),
+            new Child("Salif"),
+            new Child("Maria"),
+            new Child("Kilia"),
+            new Child("Sekou"),
+            new Child("Siaka"),
+        };
+    }
+
+    public static void GiveBirthToChild()
     {
         Child child = Children[currentChildIndex];
         child.State = Child.ChildState.kAlive;
@@ -52,12 +56,12 @@ public class ChildManager
         currentChildIndex++;
     }
     
-    public void KillChild(int index)
+    public static void KillChild(int index)
     {
         KillChild(Children[index]);
     }
 
-    public void KillChild(Child child)
+    public static void KillChild(Child child)
     {
         child.State = Child.ChildState.kDead;
         DeselectChild(child);
@@ -73,17 +77,17 @@ public class ChildManager
         }
     }
     
-    public Child GetChild(int index)
+    public static Child GetChild(int index)
     {
         return Children[index];
     }
 
-    public Child FindChild(Predicate<Child> predicate)
+    public static Child FindChild(Predicate<Child> predicate)
     {
         return Children.Find(predicate);
     }
 
-    public void SelectChild(Child child)
+    public static void SelectChild(Child child)
     {
         foreach (Child c in Children.FindAll(x => x.State == Child.ChildState.kAlive))
         {
@@ -98,7 +102,7 @@ public class ChildManager
         }
     }
 
-    public void DeselectChild(Child child)
+    public static void DeselectChild(Child child)
     {
         child.IsSelected = false;
 
@@ -108,7 +112,7 @@ public class ChildManager
         }
     }
 
-    public void GraduateChild(Child child)
+    public static void GraduateChild(Child child)
     {
         child.State = Child.ChildState.kGraduated;
         DeselectChild(child);
@@ -119,7 +123,7 @@ public class ChildManager
         }
     }
 
-    public void ApplyEventToAllChildren(DataPacket data)
+    public static void ApplyEventToAllChildren(DataPacket data)
     {
         foreach (Child child in Children.FindAll(x => x.State == Child.ChildState.kAlive))
         {

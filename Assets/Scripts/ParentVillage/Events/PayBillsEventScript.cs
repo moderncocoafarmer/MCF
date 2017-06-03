@@ -32,7 +32,7 @@ public class PayBillsEventScript : EventScript
     public override bool ChoicesEnabled { get { return IncomeManager.Money >= Cost; } }
     protected override string OnYesAudioClipPath { get { return "Audio/Money"; } }
 
-    public int Cost { get { return 430500 + 31980 * ChildManager.Instance.ChildCount; } }
+    public int Cost { get { return 430500 + 31980 * ChildManager.ChildCount; } }
 
     public override bool DataImplemented { get { return true; } }
     public override DataType EventDataType { get { return DataType.kNo; } }
@@ -55,6 +55,6 @@ public class PayBillsEventScript : EventScript
     {
         base.OnNo();
 
-        ChildManager.Instance.ApplyEventToAllChildren(new DataPacket(-30, -20, 0, -50));
+        ChildManager.ApplyEventToAllChildren(new DataPacket(-30, -20, 0, -50));
     }
 }
