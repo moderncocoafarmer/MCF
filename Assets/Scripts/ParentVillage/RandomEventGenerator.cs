@@ -44,7 +44,11 @@ public class RandomEventGenerator : MonoBehaviour {
                 }
             }
 
-            if (value > 9.999f)
+            // Recreate a new value here - want the chances of fighting to break out to be independent of other events occuring
+            // If we use the same old value, income level change event occurring will prevent this one from occurring
+            value = Random.Range(0.0f, 10.0f);
+
+            if (value > 9.997f)
             {
                 dialog.QueueEvent(new FightingBreaksOutEventScript());
                 return;
