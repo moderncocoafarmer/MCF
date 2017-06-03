@@ -10,7 +10,8 @@ public class Child : IData
     {
         kAlive,
         kGraduated,
-        kDead
+        kDead,
+        kUnborn
     }
 
     public delegate void LockedInHandler(Child child);
@@ -43,7 +44,7 @@ public class Child : IData
             health = value;
             if (health <= 0)
             {
-                ChildManager.Instance.RemoveChild(this);
+                ChildManager.Instance.KillChild(this);
             }
         }
     }
@@ -63,7 +64,7 @@ public class Child : IData
     public Child(string name)
     {
         BuildingType = BuildingType.Idle;
-        State = ChildState.kDead;
+        State = ChildState.kUnborn;
         Name = name;
         Education = 0;
         Health = MaxHealth;

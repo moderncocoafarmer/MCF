@@ -11,8 +11,7 @@ public class ChildManager
     private static ChildManager instance = new ChildManager();
     public static ChildManager Instance { get { return instance; } }
 
-    public event ChildEventHandler ChildAdded;
-    public event ChildEventHandler ChildRemoved;
+    public event ChildEventHandler ChildKilled;
     public event ChildEventHandler ChildSelected;
     public event ChildEventHandler ChildDeselected;
     public event ChildEventHandler ChildGraduated;
@@ -38,32 +37,26 @@ public class ChildManager
 
     private ChildManager() { }
     
-    public void AddChild()
+    public void GiveBirthToChild()
     {
         Child child = Children[currentChildIndex];
         child.State = Child.ChildState.kAlive;
-
-        if (ChildAdded != null)
-        {
-            ChildAdded.Invoke(child);
-        }
-
         currentChildIndex++;
     }
     
-    public void RemoveChild(int index)
+    public void KillChild(int index)
     {
-        RemoveChild(Children[index]);
+        KillChild(Children[index]);
     }
 
-    public void RemoveChild(Child child)
+    public void KillChild(Child child)
     {
         child.State = Child.ChildState.kDead;
         DeselectChild(child);
         
-        if (ChildRemoved != null)
+        if (ChildKilled != null)
         {
-            ChildRemoved.Invoke(child);
+            ChildKilled.Invoke(child);
         }
 
         if (ChildCount == 0)

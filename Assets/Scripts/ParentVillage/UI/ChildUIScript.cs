@@ -5,6 +5,10 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Animator))]
 public class ChildUIScript : MonoBehaviour
 {
+    public Sprite DeadIcon;
+    public Sprite GraduatedIcon;
+
+    private Image uiImage;
     private Animator animator;
     private Text childName;
     private Text childLocation;
@@ -28,6 +32,7 @@ public class ChildUIScript : MonoBehaviour
     {
         ChildManager.Instance.ChildSelected += ChildManager_ChildSelected;
         ChildManager.Instance.ChildDeselected += ChildManager_ChildDeselected;
+        uiImage = GetComponent<Image>();
         animator = GetComponent<Animator>();
         childName = transform.FindChild("Name").GetComponent<Text>();
         childName.text = Child.Name;
@@ -104,8 +109,20 @@ public class ChildUIScript : MonoBehaviour
             border.SetActive(false);
         }
     }
+
+    public void UpdateUIForDeadChild()
+    {
+        UnhookEvents();
+        uiImage.sprite = DeadIcon;
+    }
+
+    public void UpdateUIForGraduatedChild()
+    {
+        UnhookEvents();
+        uiImage.sprite = DeadIcon;
+    }
     
-    public void OnDestroy()
+    private void UnhookEvents()
     {
         ChildManager.Instance.ChildSelected -= ChildManager_ChildSelected;
         ChildManager.Instance.ChildDeselected -= ChildManager_ChildDeselected;

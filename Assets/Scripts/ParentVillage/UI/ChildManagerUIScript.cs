@@ -6,63 +6,54 @@ public class ChildManagerUIScript : MonoBehaviour {
 
     public GameObject ChildUI;
 
-    private List<GameObject> childUIs = new List<GameObject>();
+    private List<ChildUIScript> childUIs = new List<ChildUIScript>();
     private const float Spacing = 80;
 
 	// Use this for initialization
 	void Start ()
     {
-        ChildManager.Instance.ChildAdded += ChildManager_ChildAdded;
-        ChildManager.Instance.ChildRemoved += ChildManager_ChildRemoved;
+        // Create the UIs for each child and hide them at the start
+        for (int i = 0; i < ChildManager.MaxChildCount; ++i)
+        {
+            GameObject ui = Instantiate(ChildUI, transform, false);
+            ui.transform.localPosition = new Vector3(Spacing * i, 0, 0);
+
+            ChildUIScript uiScript = ui.GetComponent<ChildUIScript>();
+            uiScript.Child = ChildManager.Instance.GetChild(i);
+            childUIs.Add(uiScript);
+
+            ui.SetActive(false);
+        }
+
+        ChildManager.Instance.ChildKilled += ChildManager_ChildKilled;
         ChildManager.Instance.ChildGraduated += ChildManager_ChildGraduated;
     }
-
-    void Update()
-    {
-        ChildManager.Instance.Update();
-    }
-
-    private void ChildManager_ChildAdded(Child child)
-    {
-        GameObject ui = Instantiate(ChildUI, transform, false);
-        ui.GetComponent<ChildUIScript>().Child = child;
-        ui.transform.localPosition = new Vector3(Spacing * (ChildManager.Instance.ChildCount - 1), 0, 0);
-
-        childUIs.Add(ui);
-    }
-
-    private void ChildManager_ChildRemoved(Child child)
+    
+    private void ChildManager_ChildKilled(Child child)
     {
         if (child.Health <= 0)
         {
             GameObject.Find(EventDialogScript.EventDialogName).GetComponent<EventDialogScript>().QueueEvent(new ChildDiedEventScript(child));
         }
 
-        RemoveChildUI(child);
+        UpdateChildUIOnDeath(child);
     }
 
     private void ChildManager_ChildGraduated(Child child)
     {
-        RemoveChildUI(child);
+        ChildUIScript childUI = childUIs.Find(x => x.GetComponent<ChildUIScript>().Child == child);
+        childUI.UpdateUIForGraduatedChild();
     }
 
-    private void RemoveChildUI(Child child)
+    private void UpdateChildUIOnDeath(Child child)
     {
-        GameObject childUIToDestroy = childUIs.Find(x => x.GetComponent<ChildUIScript>().Child == child);
-        childUIs.Remove(childUIToDestroy);
-        Destroy(childUIToDestroy);
-
-        // Fixup the positions of the other UI
-        for (int i = 0; i < childUIs.Count; ++i)
-        {
-            childUIs[i].transform.localPosition = new Vector3(Spacing * i, 0, 0);
-        }
+        ChildUIScript childUI = childUIs.Find(x => x.GetComponent<ChildUIScript>().Child == child);
+        childUI.UpdateUIForDeadChild();
     }
 
     private void OnDestroy()
     {
-        ChildManager.Instance.ChildAdded -= ChildManager_ChildAdded;
-        ChildManager.Instance.ChildRemoved -= ChildManager_ChildRemoved;
+        ChildManager.Instance.ChildKilled -= ChildManager_ChildKilled;
         ChildManager.Instance.ChildGraduated -= ChildManager_ChildGraduated;
     }
 }

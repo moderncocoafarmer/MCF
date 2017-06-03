@@ -30,6 +30,6 @@ public class ChildLeftHomeEventScript : EventScript
     {
         base.OnNo();
 
-        ChildManager.Instance.RemoveChild(childThatWillLeave);
+        ChildManager.Instance.KillChild(childThatWillLeave);
     }
 }

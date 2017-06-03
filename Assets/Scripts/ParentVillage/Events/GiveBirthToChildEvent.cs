@@ -30,7 +30,7 @@ public class GiveBirthToChildEvent : EventScript
 
     protected override void OnYes()
     {
-        ChildManager.Instance.AddChild();
+        ChildManager.Instance.GiveBirthToChild();
 
         if (ChildManager.Instance.ChildCount > ChildManager.MaxChildCount)
         {
