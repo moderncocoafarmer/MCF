@@ -11,6 +11,7 @@ public class ChildManager
     private static ChildManager instance = new ChildManager();
     public static ChildManager Instance { get { return instance; } }
 
+    public event ChildEventHandler ChildAdded;
     public event ChildEventHandler ChildKilled;
     public event ChildEventHandler ChildSelected;
     public event ChildEventHandler ChildDeselected;
@@ -41,6 +42,12 @@ public class ChildManager
     {
         Child child = Children[currentChildIndex];
         child.State = Child.ChildState.kAlive;
+
+        if (ChildAdded != null)
+        {
+            ChildAdded.Invoke(child);
+        }
+
         currentChildIndex++;
     }
     

@@ -2,7 +2,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Animator))]
 public class ChildUIScript : MonoBehaviour
 {
     public Sprite DeadIcon;
@@ -32,8 +31,10 @@ public class ChildUIScript : MonoBehaviour
     {
         ChildManager.Instance.ChildSelected += ChildManager_ChildSelected;
         ChildManager.Instance.ChildDeselected += ChildManager_ChildDeselected;
-        uiImage = GetComponent<Image>();
-        animator = GetComponent<Animator>();
+
+        Transform icon = transform.FindChild("Icon");
+        uiImage = icon.GetComponent<Image>();
+        animator = icon.GetComponent<Animator>();
         childName = transform.FindChild("Name").GetComponent<Text>();
         childName.text = Child.Name;
         childLocation = transform.FindChild("Location").GetComponent<Text>();
@@ -78,7 +79,10 @@ public class ChildUIScript : MonoBehaviour
 
         if (doubleClicked)
         {
-            dataDialog.Show(Child);
+            if (Child.State == Child.ChildState.kAlive)
+            {
+                dataDialog.Show(Child);
+            }
         }
         
         timeSinceLastClicked = 0;
@@ -113,13 +117,17 @@ public class ChildUIScript : MonoBehaviour
     public void UpdateUIForDeadChild()
     {
         UnhookEvents();
+        animator.enabled = false;
         uiImage.sprite = DeadIcon;
+        uiImage.gameObject.transform.localScale *= 0.5f;
     }
 
     public void UpdateUIForGraduatedChild()
     {
         UnhookEvents();
-        uiImage.sprite = DeadIcon;
+        animator.enabled = false;
+        uiImage.sprite = GraduatedIcon;
+        uiImage.gameObject.transform.localScale *= 0.5f;
     }
     
     private void UnhookEvents()
