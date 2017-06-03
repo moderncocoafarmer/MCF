@@ -7,15 +7,20 @@ public class ShowGameObjectScript : MonoBehaviour
     public string GameObjectName;
     private GameObject gameObjectToShow;
 
-    void Start()
+    void Awake()
     {
         gameObjectToShow = GameObject.Find(GameObjectName);
-        gameObjectToShow.SetActive(false);
     }
 
 	public void Show()
     {
         TimeManager.Paused = true;
         gameObjectToShow.SetActive(true);
+    }
+
+    public void Hide()
+    {
+        TimeManager.Paused = false;
+        gameObjectToShow.SetActive(false);
     }
 }

@@ -11,7 +11,9 @@ public class DonateDialogScript : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
-	}
+        donateDialogUI = transform.FindChild("DonateDialogUI").gameObject;
+        donateDialogUI.SetActive(false);
+    }
 	
 	// Update is called once per frame
 	void Update () {
