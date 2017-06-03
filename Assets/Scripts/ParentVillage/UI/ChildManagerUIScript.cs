@@ -12,21 +12,21 @@ public class ChildManagerUIScript : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
-        ChildManager.ChildAdded += ChildManager_ChildAdded;
-        ChildManager.ChildRemoved += ChildManager_ChildRemoved;
-        ChildManager.ChildGraduated += ChildManager_ChildGraduated;
+        ChildManager.Instance.ChildAdded += ChildManager_ChildAdded;
+        ChildManager.Instance.ChildRemoved += ChildManager_ChildRemoved;
+        ChildManager.Instance.ChildGraduated += ChildManager_ChildGraduated;
     }
 
     void Update()
     {
-        ChildManager.Update();
+        ChildManager.Instance.Update();
     }
 
     private void ChildManager_ChildAdded(Child child)
     {
         GameObject ui = Instantiate(ChildUI, transform, false);
         ui.GetComponent<ChildUIScript>().Child = child;
-        ui.transform.localPosition = new Vector3(Spacing * (ChildManager.ChildCount - 1), 0, 0);
+        ui.transform.localPosition = new Vector3(Spacing * (ChildManager.Instance.ChildCount - 1), 0, 0);
 
         childUIs.Add(ui);
     }
@@ -61,8 +61,8 @@ public class ChildManagerUIScript : MonoBehaviour {
 
     private void OnDestroy()
     {
-        ChildManager.ChildAdded -= ChildManager_ChildAdded;
-        ChildManager.ChildRemoved -= ChildManager_ChildRemoved;
-        ChildManager.ChildGraduated -= ChildManager_ChildGraduated;
+        ChildManager.Instance.ChildAdded -= ChildManager_ChildAdded;
+        ChildManager.Instance.ChildRemoved -= ChildManager_ChildRemoved;
+        ChildManager.Instance.ChildGraduated -= ChildManager_ChildGraduated;
     }
 }

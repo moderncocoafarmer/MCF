@@ -35,7 +35,7 @@
 
         }
     }
-    public static int IncomeFromChildren { get { return 615000 * ChildManager.ChildrenGraduated; } }
+    public static int IncomeFromChildren { get { return 615000 * ChildManager.Instance.ChildrenGraduated; } }
 
     static IncomeManager()
     {

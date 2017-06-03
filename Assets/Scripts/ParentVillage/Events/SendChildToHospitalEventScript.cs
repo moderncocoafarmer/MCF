@@ -17,7 +17,7 @@ public class SendChildToHospitalEventScript : InteractableBuildingEventScript
     {
         get
         {
-            Child selectedChild = ChildManager.SelectedChild;
+            Child selectedChild = ChildManager.Instance.SelectedChild;
 
             if (selectedChild.Health > HealthThreshold)
             {
@@ -43,10 +43,10 @@ public class SendChildToHospitalEventScript : InteractableBuildingEventScript
     private const int Cost = 135300;
     public const float HealthThreshold = 0.5f * Child.MaxHealth;
 
-    public override float TimeOut { get { return (ChildManager.SelectedChild != null && ChildManager.SelectedChild.Health <= HealthThreshold && IncomeManager.Money >= Cost) ? float.MaxValue : 4; } }
+    public override float TimeOut { get { return (ChildManager.Instance.SelectedChild != null && ChildManager.Instance.SelectedChild.Health <= HealthThreshold && IncomeManager.Money >= Cost) ? float.MaxValue : 4; } }
     
-    protected override bool ChoicesEnabledImpl { get { return ChildManager.SelectedChild.Health <= HealthThreshold && IncomeManager.Money >= Cost; } }
-    public override int CostToPerform { get { return ChildManager.SelectedChild.Health <= HealthThreshold && IncomeManager.Money >= Cost ? Cost : 0; } }
+    protected override bool ChoicesEnabledImpl { get { return ChildManager.Instance.SelectedChild.Health <= HealthThreshold && IncomeManager.Money >= Cost; } }
+    public override int CostToPerform { get { return ChildManager.Instance.SelectedChild.Health <= HealthThreshold && IncomeManager.Money >= Cost ? Cost : 0; } }
     protected override float LockTime { get { return TimeManager.SecondsPerYear / 3; } }
     protected override string OnShowAudioClipPath { get { return "Audio/Hospital"; } }
 

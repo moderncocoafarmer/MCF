@@ -9,7 +9,7 @@ public class ChildAlreadyLockedInEventScript : EventScript
 
     public override string Description
     {
-        get { return ChildManager.SelectedChild.Name + " is busy at " + lockedInBuildingType.ToString(); }
+        get { return ChildManager.Instance.SelectedChild.Name + " is busy at " + lockedInBuildingType.ToString(); }
     }
 
     public override float TimeOut { get { return 4; } }

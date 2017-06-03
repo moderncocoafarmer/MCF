@@ -40,7 +40,7 @@ public class DataDialogScript : MonoBehaviour
     // Update is called once per frame
     void Update ()
     {
-        Child currentSelectedChild = ChildManager.SelectedChild;
+        Child currentSelectedChild = ChildManager.Instance.SelectedChild;
 
         if (currentSelectedChild != null)
         {

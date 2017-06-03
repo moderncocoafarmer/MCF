@@ -17,7 +17,7 @@ public class SendChildToWellEventScript : InteractableBuildingEventScript
     {
         get
         {
-            return "Do you wish to send " + ChildManager.SelectedChild.Name + " to the well to collect water?";
+            return "Do you wish to send " + ChildManager.Instance.SelectedChild.Name + " to the well to collect water?";
         }
     }
     
@@ -59,6 +59,6 @@ public class SendChildToWellEventScript : InteractableBuildingEventScript
     {
         base.OnTimeComplete(child);
 
-        ChildManager.ApplyEventToAllChildren(new DataPacket(10, 0, 0, 10));
+        ChildManager.Instance.ApplyEventToAllChildren(new DataPacket(10, 0, 0, 10));
     }
 }

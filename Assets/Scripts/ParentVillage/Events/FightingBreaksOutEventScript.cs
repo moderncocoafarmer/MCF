@@ -26,6 +26,6 @@ public class FightingBreaksOutEventScript : EventScript
     {
         base.OnNo();
 
-        ChildManager.ApplyEventToAllChildren(new DataPacket(0, -40, 0, 0));
+        ChildManager.Instance.ApplyEventToAllChildren(new DataPacket(0, -40, 0, 0));
     }
 }

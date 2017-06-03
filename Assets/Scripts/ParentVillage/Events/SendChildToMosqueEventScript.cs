@@ -25,7 +25,7 @@ public class SendChildToMosqueEventScript : InteractableBuildingEventScript
     // When one child completes some time here
     // Hopefully inspires the player to keep sending a child here to keep getting benefits to the family.
 
-    public override string YesButtonText { get { return "Send " + ChildManager.SelectedChild.Name; } }
+    public override string YesButtonText { get { return "Send " + ChildManager.Instance.SelectedChild.Name; } }
     protected override bool ChoicesEnabledImpl { get { return true; } }
     public override string NoButtonText { get { return "Leave"; } }
 
@@ -60,6 +60,6 @@ public class SendChildToMosqueEventScript : InteractableBuildingEventScript
     {
         // Undo the incremental changes on this child
         child.Apply(new DataPacket(0, -3, -2, -5));
-        ChildManager.ApplyEventToAllChildren(new DataPacket(0, 3, 2, 5));
+        ChildManager.Instance.ApplyEventToAllChildren(new DataPacket(0, 3, 2, 5));
     }
 }

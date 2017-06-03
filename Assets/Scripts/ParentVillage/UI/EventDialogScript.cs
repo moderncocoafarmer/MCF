@@ -86,7 +86,7 @@ public class EventDialogScript : MonoBehaviour
             timePausedOnEventShow = TimeManager.Paused;
             TimeManager.Paused = true;
             CurrentEvent = events.Dequeue();
-            Child selectedChild = ChildManager.SelectedChild;
+            Child selectedChild = ChildManager.Instance.SelectedChild;
 
             if (CurrentEvent.OnShowAudioClip != null)
             {

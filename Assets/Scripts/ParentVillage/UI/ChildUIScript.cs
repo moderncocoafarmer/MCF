@@ -26,8 +26,8 @@ public class ChildUIScript : MonoBehaviour
     
 	void Start ()
     {
-        ChildManager.ChildSelected += ChildManager_ChildSelected;
-        ChildManager.ChildDeselected += ChildManager_ChildDeselected;
+        ChildManager.Instance.ChildSelected += ChildManager_ChildSelected;
+        ChildManager.Instance.ChildDeselected += ChildManager_ChildDeselected;
         animator = GetComponent<Animator>();
         childName = transform.FindChild("Name").GetComponent<Text>();
         childName.text = Child.Name;
@@ -47,9 +47,9 @@ public class ChildUIScript : MonoBehaviour
             Child.Apply(
                 new DataPacket(
                 0,
-                -ChildManager.ChildDegredation / TimeManager.SecondsPerYear,
+                -ChildManager.Instance.ChildDegredation / TimeManager.SecondsPerYear,
                 0,
-                -ChildManager.ChildDegredation / TimeManager.SecondsPerYear));
+                -ChildManager.Instance.ChildDegredation / TimeManager.SecondsPerYear));
 
             secondTimer = 0;
         }
@@ -63,12 +63,12 @@ public class ChildUIScript : MonoBehaviour
 
         if (Child.IsSelected && !doubleClicked)
         {
-            ChildManager.DeselectChild(Child);
+            ChildManager.Instance.DeselectChild(Child);
         }
         else
         {
             // If we double click, we must always select the child otherwise the data dialog will have nothing to show 
-            ChildManager.SelectChild(Child);
+            ChildManager.Instance.SelectChild(Child);
         }
 
         if (doubleClicked)
@@ -107,7 +107,7 @@ public class ChildUIScript : MonoBehaviour
     
     public void OnDestroy()
     {
-        ChildManager.ChildSelected -= ChildManager_ChildSelected;
-        ChildManager.ChildDeselected -= ChildManager_ChildDeselected;
+        ChildManager.Instance.ChildSelected -= ChildManager_ChildSelected;
+        ChildManager.Instance.ChildDeselected -= ChildManager_ChildDeselected;
     }
 }

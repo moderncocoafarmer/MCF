@@ -4,39 +4,41 @@ using System.Linq;
 using System.Text;
 using UnityEngine.SceneManagement;
 
-public static class ChildManager
+public class ChildManager
 {
     public delegate void ChildEventHandler(Child child);
 
-    public static event ChildEventHandler ChildAdded;
-    public static event ChildEventHandler ChildRemoved;
-    public static event ChildEventHandler ChildSelected;
-    public static event ChildEventHandler ChildDeselected;
-    public static event ChildEventHandler ChildGraduated;
+    private static ChildManager instance = new ChildManager();
+    public static ChildManager Instance { get { return instance; } }
+
+    public event ChildEventHandler ChildAdded;
+    public event ChildEventHandler ChildRemoved;
+    public event ChildEventHandler ChildSelected;
+    public event ChildEventHandler ChildDeselected;
+    public event ChildEventHandler ChildGraduated;
 
     public const int MaxChildCount = 7;
-    public static float ChildDegredation = 10;
-    public static int ChildCount { get; private set; }
-    public static int ChildrenGraduated { get; private set; }
-    public static Child SelectedChild { get { return Children.Find(x => x.IsSelected); } }
+    public float ChildDegredation = 10;
+    public int ChildCount { get; private set; }
+    public int ChildrenGraduated { get; private set; }
+    public Child SelectedChild { get { return Children.Find(x => x.IsSelected); } }
 
-    private static List<Child> ChildrenToAdd = new List<Child>();
-    private static List<Child> ChildrenToRemove = new List<Child>();
-    private static List<Child> Children = new List<Child>();
-
-    private static List<string> names = new List<string>()
+    private List<Child> ChildrenToAdd = new List<Child>();
+    private List<Child> ChildrenToRemove = new List<Child>();
+    private List<Child> Children = new List<Child>()
     {
-        "Adama",
-        "Oumar",
-        "Salif",
-        "Maria",
-        "Kilia",
-        "Sekou",
-        "Siaka",
-        "Jacob",
+        new Child("Adama"),
+        new Child("Oumar"),
+        new Child("Salif"),
+        new Child("Maria"),
+        new Child("Kilia"),
+        new Child("Sekou"),
+        new Child("Siaka"),
     };
 
-    public static void Update()
+    private ChildManager() { }
+
+    public void Update()
     {
         foreach (Child child in ChildrenToAdd)
         {
@@ -53,20 +55,12 @@ public static class ChildManager
         ChildrenToRemove.Clear();
     }
 
-    public static void AddChild()
+    public void AddChild()
     {
-        List<string> allFreeNames = names.Where(x => !Children.Exists(y => y.Name == x)).ToList();
-
-        Random random = new Random();
-        string freeName = allFreeNames[random.Next(0, allFreeNames.Count)];
-
-        Child child = new Child(freeName);
         ChildCount++;
-        
-        ChildrenToAdd.Add(child);
     }
 
-    private static void AddChildImpl(Child child)
+    private void AddChildImpl(Child child)
     {
         Children.Add(child);
 
@@ -76,18 +70,18 @@ public static class ChildManager
         }
     }
 
-    public static void RemoveChild(int index)
+    public void RemoveChild(int index)
     {
         RemoveChild(Children[index]);
     }
 
-    public static void RemoveChild(Child child)
+    public void RemoveChild(Child child)
     {
         ChildCount--;
         ChildrenToRemove.Add(child);
     }
 
-    private static void RemoveChildImpl(Child child)
+    private void RemoveChildImpl(Child child)
     {
         DeselectChild(child);
         Children.Remove(child);
@@ -103,17 +97,17 @@ public static class ChildManager
         }
     }
 
-    public static Child GetChild(int index)
+    public Child GetChild(int index)
     {
         return Children[index];
     }
 
-    public static Child FindChild(Predicate<Child> predicate)
+    public Child FindChild(Predicate<Child> predicate)
     {
         return Children.Find(predicate);
     }
 
-    public static void SelectChild(Child child)
+    public void SelectChild(Child child)
     {
         foreach (Child c in Children)
         {
@@ -128,7 +122,7 @@ public static class ChildManager
         }
     }
 
-    public static void DeselectChild(Child child)
+    public void DeselectChild(Child child)
     {
         child.IsSelected = false;
 
@@ -138,7 +132,7 @@ public static class ChildManager
         }
     }
 
-    public static void GraduateChild(Child child)
+    public void GraduateChild(Child child)
     {
         ChildrenGraduated++;
 
@@ -151,7 +145,7 @@ public static class ChildManager
         }
     }
 
-    public static void ApplyEventToAllChildren(DataPacket data)
+    public void ApplyEventToAllChildren(DataPacket data)
     {
         foreach (Child child in Children)
         {

@@ -59,7 +59,7 @@ public class ChildTraffickedEventScript : EventScript
     private void TrafficChild(Child child)
     {
         childrenTrafficked++;
-        ChildManager.RemoveChild(childThatWillBeTaken);
+        ChildManager.Instance.RemoveChild(childThatWillBeTaken);
 
         if (childrenTrafficked == 3)
         {

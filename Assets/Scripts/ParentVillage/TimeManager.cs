@@ -23,7 +23,9 @@ public class TimeManager : MonoBehaviour
         dialogScript = GameObject.Find(EventDialogScript.EventDialogName).GetComponent<EventDialogScript>();
         dialogScript.QueueEvent(new InstructionEventScript());
         notificationScript = GameObject.Find(NotificationDialogScript.NotificationDialogName).GetComponent<NotificationDialogScript>();
+        TotalGameTimePassed = 0;
         CurrentTimeInYear = 0;
+        DeltaTime = 0;
         Paused = false; // Instruction event will keep game paused otherwise when it launches on startup
     }
 	
