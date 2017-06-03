@@ -10,7 +10,7 @@ public class ChildManagerUIScript : MonoBehaviour {
     private const float Spacing = 80;
 
 	// Use this for initialization
-	void Start ()
+	void Awake ()
     {
         // Create the UIs for each child and hide them at the start
         for (int i = 0; i < ChildManager.MaxChildCount; ++i)
@@ -25,6 +25,7 @@ public class ChildManagerUIScript : MonoBehaviour {
             childUIs.Add(uiScript);
         }
 
+        // Do this in Awake so we can hook into events immediately
         ChildManager.ChildAdded += ChildManager_ChildAdded;
         ChildManager.ChildKilled += ChildManager_ChildKilled;
         ChildManager.ChildGraduated += ChildManager_ChildGraduated;

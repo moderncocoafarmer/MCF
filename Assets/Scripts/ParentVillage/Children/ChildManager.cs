@@ -43,6 +43,13 @@ public class ChildManager : MonoBehaviour
         };
     }
 
+    public void Start()
+    {
+        // Add two children to begin with
+        GiveBirthToChild();
+        GiveBirthToChild();
+    }
+
     public static void GiveBirthToChild()
     {
         Child child = Children[currentChildIndex];
