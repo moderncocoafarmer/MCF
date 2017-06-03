@@ -47,8 +47,8 @@ public class SendChildToSchoolEventScript : InteractableBuildingEventScript
 
     public override bool DataImplemented { get { return true; } }
     public override string HealthDeltaText { get { return "No change"; } }
-    public override string SafetyDeltaText { get { return "+10%"; } }
-    public override string EducationDeltaText { get { return "+30%"; } }
+    public override string SafetyDeltaText { get { return "No change"; } }
+    public override string EducationDeltaText { get { return "+20%"; } }
     public override string HappinessDeltaText { get { return "+10%"; } }
 
     public override string GetOnCompleteDescription(Child child)
@@ -64,8 +64,8 @@ public class SendChildToSchoolEventScript : InteractableBuildingEventScript
     {
         return new DataPacket(
             0 / LockTime,
-            10 / LockTime,
-            30 / LockTime,
+            0 / LockTime,
+            20 / LockTime,
             10 / LockTime);
     }
 
@@ -73,7 +73,7 @@ public class SendChildToSchoolEventScript : InteractableBuildingEventScript
     {
         base.OnTimeComplete(child);
 
-        if (child.Happiness <= 10 && UnityEngine.Random.Range(0, 1) > 0.75f)
+        if (child.Happiness <= 20 && UnityEngine.Random.Range(0, 1) > 0.75f)
         {
              GameObject.Find(EventDialogScript.EventDialogName).GetComponent<EventDialogScript>().QueueEvent(new ChildExpelledEventScript(child));
         }
