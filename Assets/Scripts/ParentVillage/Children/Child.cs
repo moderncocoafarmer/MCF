@@ -6,6 +6,13 @@ using UnityEngine.Assertions;
 
 public class Child : IData
 {
+    public enum ChildState
+    {
+        kAlive,
+        kGraduated,
+        kDead
+    }
+
     public delegate void LockedInHandler(Child child);
 
     public const float MaxEducation = 100;
@@ -45,6 +52,7 @@ public class Child : IData
 
     public float Happiness { get; private set; }
 
+    public ChildState State { get; set; }
     public bool IsSelected { get; set; }
 
     public BuildingType BuildingType { get; private set; }
@@ -55,6 +63,7 @@ public class Child : IData
     public Child(string name)
     {
         BuildingType = BuildingType.Idle;
+        State = ChildState.kDead;
         Name = name;
         Education = 0;
         Health = MaxHealth;
@@ -64,10 +73,13 @@ public class Child : IData
 
     public void Apply(DataPacket data)
     {
-        Education = MathUtils.Clamp(Education + data.Education, 0, MaxEducation);
-        Health = MathUtils.Clamp(Health + data.Health, 0, MaxHealth);
-        Safety = MathUtils.Clamp(Safety + data.Safety, 0, MaxSafety);
-        Happiness = MathUtils.Clamp(Happiness + data.Happiness, 0, MaxHappiness);
+        if (State == ChildState.kAlive)
+        {
+            Education = MathUtils.Clamp(Education + data.Education, 0, MaxEducation);
+            Health = MathUtils.Clamp(Health + data.Health, 0, MaxHealth);
+            Safety = MathUtils.Clamp(Safety + data.Safety, 0, MaxSafety);
+            Happiness = MathUtils.Clamp(Happiness + data.Happiness, 0, MaxHappiness);
+        }
     }
 
     public void LockIn(BuildingType buildingType)

@@ -17,14 +17,14 @@ public class ChildManager
     public event ChildEventHandler ChildDeselected;
     public event ChildEventHandler ChildGraduated;
 
+    private int currentChildIndex = 0;
     public const int MaxChildCount = 7;
     public float ChildDegredation = 10;
-    public int ChildCount { get; private set; }
-    public int ChildrenGraduated { get; private set; }
+
+    public int ChildCount { get { return Children.Count(x => x.State == Child.ChildState.kAlive); } }
+    public int ChildrenGraduated { get { return Children.Count(x => x.State == Child.ChildState.kGraduated); } }
     public Child SelectedChild { get { return Children.Find(x => x.IsSelected); } }
 
-    private List<Child> ChildrenToAdd = new List<Child>();
-    private List<Child> ChildrenToRemove = new List<Child>();
     private List<Child> Children = new List<Child>()
     {
         new Child("Adama"),
@@ -37,39 +37,20 @@ public class ChildManager
     };
 
     private ChildManager() { }
-
-    public void Update()
-    {
-        foreach (Child child in ChildrenToAdd)
-        {
-            AddChildImpl(child);
-        }
-
-        ChildrenToAdd.Clear();
-
-        foreach (Child child in ChildrenToRemove)
-        {
-            RemoveChildImpl(child);
-        }
-
-        ChildrenToRemove.Clear();
-    }
-
+    
     public void AddChild()
     {
-        ChildCount++;
-    }
-
-    private void AddChildImpl(Child child)
-    {
-        Children.Add(child);
+        Child child = Children[currentChildIndex];
+        child.State = Child.ChildState.kAlive;
 
         if (ChildAdded != null)
         {
             ChildAdded.Invoke(child);
         }
-    }
 
+        currentChildIndex++;
+    }
+    
     public void RemoveChild(int index)
     {
         RemoveChild(Children[index]);
@@ -77,15 +58,9 @@ public class ChildManager
 
     public void RemoveChild(Child child)
     {
-        ChildCount--;
-        ChildrenToRemove.Add(child);
-    }
-
-    private void RemoveChildImpl(Child child)
-    {
+        child.State = Child.ChildState.kDead;
         DeselectChild(child);
-        Children.Remove(child);
-
+        
         if (ChildRemoved != null)
         {
             ChildRemoved.Invoke(child);
@@ -96,7 +71,7 @@ public class ChildManager
             SceneManager.LoadScene("LoseMenu");
         }
     }
-
+    
     public Child GetChild(int index)
     {
         return Children[index];
@@ -109,7 +84,7 @@ public class ChildManager
 
     public void SelectChild(Child child)
     {
-        foreach (Child c in Children)
+        foreach (Child c in Children.FindAll(x => x.State == Child.ChildState.kAlive))
         {
             c.IsSelected = false;
         }
@@ -134,10 +109,8 @@ public class ChildManager
 
     public void GraduateChild(Child child)
     {
-        ChildrenGraduated++;
-
+        child.State = Child.ChildState.kGraduated;
         DeselectChild(child);
-        Children.Remove(child);
 
         if (ChildGraduated != null)
         {
@@ -147,7 +120,7 @@ public class ChildManager
 
     public void ApplyEventToAllChildren(DataPacket data)
     {
-        foreach (Child child in Children)
+        foreach (Child child in Children.FindAll(x => x.State == Child.ChildState.kAlive))
         {
             child.Apply(data);
         }
