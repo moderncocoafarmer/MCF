@@ -10,7 +10,7 @@ public class SendChildToWorkEventScript : InteractableBuildingEventScript
 
     protected override string BuildingDescription
     {
-        get { return "The fields stretch for miles under the burning sun."; }
+        get { return "Your child goes to the Ivory Coast.  You won't believe what happens next..."; }
     }
 
     protected override string ChildSelectedDescription
@@ -38,11 +38,11 @@ public class SendChildToWorkEventScript : InteractableBuildingEventScript
     public override BuildingType BuildingType { get { return BuildingType.Work; } }
     protected override Vector3 BuildingLocation { get { return GameObject.Find("Farm").transform.position; } }
 
-    public override bool DataImplemented { get { return false; } }
-    public override string HealthDeltaText { get { return "-50%"; } }
-    public override string SafetyDeltaText { get { return "-50%"; } }
-    public override string EducationDeltaText { get { return "No change"; } }
-    public override string HappinessDeltaText { get { return "-50%"; } }
+    public override bool DataImplemented { get { return true; } }
+    public override string HealthDeltaText { get { return "???"; } }
+    public override string SafetyDeltaText { get { return "???"; } }
+    public override string EducationDeltaText { get { return "???"; } }
+    public override string HappinessDeltaText { get { return "???"; } }
 
     public override bool ConfirmEventQueued(Child selectedChild)
     {
