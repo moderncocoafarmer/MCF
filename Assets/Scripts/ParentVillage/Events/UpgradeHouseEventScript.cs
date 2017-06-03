@@ -8,7 +8,7 @@ public class UpgradeHouseEventScript : InteractableBuildingEventScript
 {
     public override string Name
     {
-        get { return "Home"; }
+        get { return "Home  ( 4 Months )"; }
     }
 
     protected override string BuildingDescription
@@ -37,7 +37,7 @@ public class UpgradeHouseEventScript : InteractableBuildingEventScript
     public override float TimeOut { get { return IncomeManager.Money >= CostToPerform ? float.MaxValue : 4; } }
     protected override bool ChoicesEnabledImpl { get { return IncomeManager.Money >= CostToPerform; } }
     public override int CostToPerform { get { return 46125; } }
-    protected override float LockTime { get { return 40; } }
+    protected override float LockTime { get { return TimeManager.SecondsPerYear / 3; } }
     protected override string OnShowAudioClipPath { get { return "Audio/Home"; } }
 
     public override BuildingType BuildingType { get { return BuildingType.Home; } }

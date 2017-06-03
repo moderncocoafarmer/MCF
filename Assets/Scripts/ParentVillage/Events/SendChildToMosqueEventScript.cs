@@ -8,7 +8,7 @@ public class SendChildToMosqueEventScript : InteractableBuildingEventScript
 {
     public override string Name
     {
-        get { return "Mosque"; }
+        get { return "Mosque  ( 3 Months )"; }
     }
 
     protected override string BuildingDescription { get { return "A spiritual place."; } }

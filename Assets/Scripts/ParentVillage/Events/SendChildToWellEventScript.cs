@@ -5,7 +5,7 @@ public class SendChildToWellEventScript : InteractableBuildingEventScript
 {
     public override string Name
     {
-        get { return "Well"; }
+        get { return "Well  ( 2 Months )"; }
     }
 
     protected override string BuildingDescription

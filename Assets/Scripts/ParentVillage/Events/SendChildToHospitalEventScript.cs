@@ -8,7 +8,7 @@ public class SendChildToHospitalEventScript : InteractableBuildingEventScript
 {
     public override string Name
     {
-        get { return "Hôpital"; }
+        get { return "Hôpital  ( 4 months )"; }
     }
 
     protected override string BuildingDescription { get { return "A place of healing if you can pay."; } }

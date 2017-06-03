@@ -5,7 +5,7 @@ public class SendChildToWorkEventScript : InteractableBuildingEventScript
 {
     public override string Name
     {
-        get { return "Cocoa Farm"; }
+        get { return "Cocoa Farm  ( 1 Year )"; }
     }
 
     protected override string BuildingDescription

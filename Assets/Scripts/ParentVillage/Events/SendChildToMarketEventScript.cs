@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class SendChildToMarketEventScript : InteractableBuildingEventScript
 {
-    public override string Name { get { return "Market"; } }
+    public override string Name { get { return "Market  ( 3 Months )"; } }
 
     protected override string BuildingDescription
     {

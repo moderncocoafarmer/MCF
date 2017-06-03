@@ -8,7 +8,7 @@ public class SendChildToSchoolEventScript : InteractableBuildingEventScript
 {
     public override string Name
     {
-        get { return "School"; }
+        get { return "School  ( 1 Year )"; }
     }
 
     protected override string BuildingDescription
