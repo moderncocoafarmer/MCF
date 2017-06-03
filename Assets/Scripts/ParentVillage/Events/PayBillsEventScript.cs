@@ -36,10 +36,10 @@ public class PayBillsEventScript : EventScript
 
     public override bool DataImplemented { get { return true; } }
     public override DataType EventDataType { get { return DataType.kNo; } }
-    public override string HealthDeltaText { get { return "-30% for all children"; } }
-    public override string SafetyDeltaText { get { return "-20% for all children"; } }
+    public override string HealthDeltaText { get { return ChoicesEnabled ? "No change" : "-30% for all children"; } }
+    public override string SafetyDeltaText { get { return ChoicesEnabled ? "No change" : "-20% for all children"; } }
     public override string EducationDeltaText { get { return "No change"; } }
-    public override string HappinessDeltaText { get { return "-50% for all children"; } }
+    public override string HappinessDeltaText { get { return ChoicesEnabled ? "No change" : "-50% for all children"; } }
 
     protected override void OnYes()
     {

@@ -8,24 +8,20 @@ public class EventDialogScript : MonoBehaviour
     public const string EventDialogName = "EventDialog";
 
     public bool DialogOpen { get { return eventDialogUI.activeSelf; } }
+    private EventScript CurrentEvent { get; set; }
 
     private bool timePausedOnEventShow;
     private AudioSource audioSource;
     private GameObject eventDialogUI;
     private Text nameUI;
     private Text descriptionUI;
-    private GameObject yesButton;
-    private GameObject noButton;
-    private GameObject closeButton;
+
+    private GameObject yesButtonPanel;
     private Text yesText;
-    private Text noText;
-    private EventScript CurrentEvent { get; set; }
 
     #region Data UI
 
     private GameObject buttonEffects;
-    private Vector3 buttonEffectPosition;
-    private float buttonEffectOffset = 225;
     private Text healthDeltaText;
     private Text safetyDeltaText;
     private Text educationDeltaText;
@@ -43,18 +39,15 @@ public class EventDialogScript : MonoBehaviour
         eventDialogUI = transform.Find("EventDialogUI").gameObject;
         nameUI = eventDialogUI.transform.Find("EventName").GetComponent<Text>();
         descriptionUI = eventDialogUI.transform.Find("EventDescription").GetComponent<Text>();
-        yesButton = eventDialogUI.transform.Find("YesButton").gameObject;
-        noButton = eventDialogUI.transform.Find("NoButton").gameObject;
-        closeButton = eventDialogUI.transform.FindChild("CloseButton").gameObject;
-        yesText = yesButton.transform.Find("YesText").GetComponent<Text>();
-        noText = noButton.transform.Find("NoText").GetComponent<Text>();
 
         buttonEffects = eventDialogUI.transform.Find("ButtonEffects").gameObject;
-        buttonEffectPosition = buttonEffects.transform.localPosition;
-        healthDeltaText = buttonEffects.transform.FindChild("Health").FindChild("HealthDeltaText").GetComponent<Text>();
-        safetyDeltaText = buttonEffects.transform.FindChild("Safety").FindChild("SafetyDeltaText").GetComponent<Text>();
-        educationDeltaText = buttonEffects.transform.FindChild("Education").FindChild("EducationDeltaText").GetComponent<Text>();
-        happinessDeltaText = buttonEffects.transform.FindChild("Happiness").FindChild("HappinessDeltaText").GetComponent<Text>();
+        healthDeltaText = buttonEffects.transform.FindChild("Health").GetComponentInChildren<Text>();
+        safetyDeltaText = buttonEffects.transform.FindChild("Safety").GetComponentInChildren<Text>();
+        educationDeltaText = buttonEffects.transform.FindChild("Education").GetComponentInChildren<Text>();
+        happinessDeltaText = buttonEffects.transform.FindChild("Happiness").GetComponentInChildren<Text>();
+
+        yesButtonPanel = eventDialogUI.transform.Find("YesButtonPanel").gameObject;
+        yesText = yesButtonPanel.GetComponentInChildren<Text>();
     }
 
     public void Start()
@@ -101,27 +94,22 @@ public class EventDialogScript : MonoBehaviour
                 audioSource.Play();
             }
 
-            bool choicesEnabled = CurrentEvent.ChoicesEnabled;
-
             nameUI.text = CurrentEvent.Name;
             descriptionUI.text = CurrentEvent.Description;
-            yesButton.SetActive(choicesEnabled);
-            noButton.SetActive(choicesEnabled);
-            closeButton.SetActive(!choicesEnabled);
-            yesText.text = choicesEnabled ? CurrentEvent.YesButtonText : "";
-            noText.text = choicesEnabled ? CurrentEvent.NoButtonText : "";
             buttonEffects.SetActive(CurrentEvent.DataImplemented);
 
             if (CurrentEvent.DataImplemented)
             {
-                int multiplier = CurrentEvent.EventDataType == EventScript.DataType.kYes ? -1 : 1;
-                buttonEffects.transform.localPosition = new Vector3(multiplier * buttonEffectOffset, buttonEffectPosition.y, buttonEffectPosition.z);
                 healthDeltaText.text = CurrentEvent.HealthDeltaText;
                 safetyDeltaText.text = CurrentEvent.SafetyDeltaText;
                 educationDeltaText.text = CurrentEvent.EducationDeltaText;
                 happinessDeltaText.text = CurrentEvent.HappinessDeltaText;
             }
-            
+
+            bool choicesEnabled = CurrentEvent.ChoicesEnabled;
+            yesButtonPanel.SetActive(choicesEnabled);
+            yesText.text = choicesEnabled ? CurrentEvent.YesButtonText : "";
+
             eventDialogUI.SetActive(true);
 
             currentTimer = 0;
