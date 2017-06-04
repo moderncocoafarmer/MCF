@@ -71,6 +71,8 @@ public class ChildManager : MonoBehaviour
     public static void KillChild(Child child)
     {
         child.State = Child.ChildState.kDead;
+        child.LockIn(BuildingType.Idle);
+
         DeselectChild(child);
         
         if (ChildKilled != null)
@@ -122,6 +124,8 @@ public class ChildManager : MonoBehaviour
     public static void GraduateChild(Child child)
     {
         child.State = Child.ChildState.kGraduated;
+        child.LockIn(BuildingType.Idle);
+
         DeselectChild(child);
 
         if (ChildGraduated != null)

@@ -67,24 +67,24 @@ public class ChildUIScript : MonoBehaviour
     {
         bool doubleClicked = timeSinceLastClicked < 0.5f;
 
-        if (Child.IsSelected && !doubleClicked)
+        if (Child.State == Child.ChildState.kAlive)
         {
-            ChildManager.DeselectChild(Child);
-        }
-        else
-        {
-            // If we double click, we must always select the child otherwise the data dialog will have nothing to show 
-            ChildManager.SelectChild(Child);
-        }
+            if (Child.IsSelected && !doubleClicked)
+            {
+                ChildManager.DeselectChild(Child);
+            }
+            else
+            {
+                // If we double click, we must always select the child otherwise the data dialog will have nothing to show 
+                ChildManager.SelectChild(Child);
+            }
 
-        if (doubleClicked)
-        {
-            if (Child.State == Child.ChildState.kAlive)
+            if (doubleClicked)
             {
                 dataDialog.Show(Child);
             }
         }
-        
+
         timeSinceLastClicked = 0;
     }
     

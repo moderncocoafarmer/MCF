@@ -54,8 +54,8 @@ public class SendChildToHospitalEventScript : InteractableBuildingEventScript
     protected override Vector3 BuildingLocation { get { return GameObject.Find("HospitalDestination").transform.position; } }
 
     public override bool DataImplemented { get { return true; } }
-    public override string HealthDeltaText { get { return "No change"; } }
-    public override string SafetyDeltaText { get { return "Restored to 100%"; } }
+    public override string HealthDeltaText { get { return "Restored to 100%"; } }
+    public override string SafetyDeltaText { get { return "No change"; } }
     public override string EducationDeltaText { get { return "No change"; } }
     public override string HappinessDeltaText { get { return "No change"; } }
 
@@ -67,8 +67,8 @@ public class SendChildToHospitalEventScript : InteractableBuildingEventScript
     protected override DataPacket GetDataPacketPerSecond(Child child)
     {
         return new DataPacket(
-            0,
             Child.MaxHealth - child.Health / LockTime,
+            0,
             0,
             0);
     }
