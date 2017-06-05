@@ -10,6 +10,7 @@ public class Child : IData
     {
         kAlive,
         kGraduated,
+        kTrafficed,
         kDead,
         kUnborn
     }

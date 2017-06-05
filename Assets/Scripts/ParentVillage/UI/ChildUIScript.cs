@@ -6,6 +6,7 @@ public class ChildUIScript : MonoBehaviour
 {
     public Sprite DeadIcon;
     public Sprite GraduatedIcon;
+    public Sprite TraffickedIcon;
 
     private Image uiImage;
     private Animator animator;
@@ -114,19 +115,30 @@ public class ChildUIScript : MonoBehaviour
         }
     }
 
-    public void UpdateUIForDeadChild()
+    public void UpdateUIForState()
     {
         UnhookEvents();
         animator.enabled = false;
-        uiImage.sprite = DeadIcon;
-        uiImage.gameObject.transform.localScale *= 0.5f;
-    }
 
-    public void UpdateUIForGraduatedChild()
-    {
-        UnhookEvents();
-        animator.enabled = false;
-        uiImage.sprite = GraduatedIcon;
+        if (Child.State == Child.ChildState.kDead)
+        {
+            uiImage.sprite = DeadIcon;
+        }
+        else if (Child.State == Child.ChildState.kGraduated)
+        {
+            uiImage.sprite = GraduatedIcon;
+        }
+        else if (Child.State == Child.ChildState.kTrafficed)
+        {
+            uiImage.sprite = TraffickedIcon;
+        }
+        else
+        {
+            Debug.Assert(false, "Unhandled child state");
+        }
+
+        // We have to do this because the normal icon for the child has loads of white space
+        // Then, when we add these items, they will be way too big
         uiImage.gameObject.transform.localScale *= 0.5f;
     }
 

@@ -68,9 +68,9 @@ public class ChildManager : MonoBehaviour
         KillChild(Children[index]);
     }
 
-    public static void KillChild(Child child)
+    public static void KillChild(Child child, Child.ChildState newState = Child.ChildState.kDead)
     {
-        child.State = Child.ChildState.kDead;
+        child.State = newState;
         child.LockIn(BuildingType.Idle);
 
         DeselectChild(child);

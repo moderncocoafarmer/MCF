@@ -28,7 +28,7 @@ public class ChildManagerUIScript : MonoBehaviour {
         // Do this in Awake so we can hook into events immediately
         ChildManager.ChildAdded += ChildManager_ChildAdded;
         ChildManager.ChildKilled += ChildManager_ChildKilled;
-        ChildManager.ChildGraduated += ChildManager_ChildGraduated;
+        ChildManager.ChildGraduated += UpdateChildUI;
     }
 
     private void ChildManager_ChildAdded(Child child)
@@ -43,25 +43,19 @@ public class ChildManagerUIScript : MonoBehaviour {
             GameObject.Find(EventDialogScript.EventDialogName).GetComponent<EventDialogScript>().QueueEvent(new ChildDiedEventScript(child));
         }
 
-        UpdateChildUIOnDeath(child);
+        UpdateChildUI(child);
     }
 
-    private void ChildManager_ChildGraduated(Child child)
+    private void UpdateChildUI(Child child)
     {
         ChildUIScript childUI = childUIs.Find(x => x.GetComponent<ChildUIScript>().Child == child);
-        childUI.UpdateUIForGraduatedChild();
-    }
-
-    private void UpdateChildUIOnDeath(Child child)
-    {
-        ChildUIScript childUI = childUIs.Find(x => x.GetComponent<ChildUIScript>().Child == child);
-        childUI.UpdateUIForDeadChild();
+        childUI.UpdateUIForState();
     }
 
     private void OnDestroy()
     {
         ChildManager.ChildAdded -= ChildManager_ChildAdded;
         ChildManager.ChildKilled -= ChildManager_ChildKilled;
-        ChildManager.ChildGraduated -= ChildManager_ChildGraduated;
+        ChildManager.ChildGraduated -= UpdateChildUI;
     }
 }
