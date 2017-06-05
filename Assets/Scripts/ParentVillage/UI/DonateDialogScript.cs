@@ -22,7 +22,7 @@ public class DonateDialogScript : MonoBehaviour {
 
     public void SetAmountToPay()
     {
-        amountToPay = transform.Find("AmountDropdown").GetComponent<Dropdown>().value;
+        amountToPay = donateDialogUI.transform.FindChild("AmountDropdown").GetComponent<Dropdown>().value;
     }
 
     public void CloseAndPay()
