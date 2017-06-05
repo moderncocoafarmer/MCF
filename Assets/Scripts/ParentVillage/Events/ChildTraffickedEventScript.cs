@@ -14,9 +14,9 @@ public class ChildTraffickedEventScript : EventScript
         {
             if (IncomeManager.Money < Cost)
             {
-                return childThatWillBeTaken.Name + " has been taken by an illegal trafficker.  You will never see him again.";
+                return childThatWillBeTaken.Name + " your child has been taken by an illegal trafficker and smuggled across the boarder. You are unlikely to see him again.";
             }
-            return childThatWillBeTaken.Name + " has been taken by an illegal trafficker.  Do you want to inform the Police? ( CFA " + Cost.ToString() + " )";
+            return childThatWillBeTaken.Name + " your child has been taken by an illegal trafficker and smuggled across the boarder.  Do you want to inform the Police? ( CFA " + Cost.ToString() + " )";
         }
     }
 
