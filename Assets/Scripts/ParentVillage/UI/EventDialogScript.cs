@@ -108,7 +108,7 @@ public class EventDialogScript : MonoBehaviour
 
             bool choicesEnabled = CurrentEvent.ChoicesEnabled;
             yesButtonPanel.SetActive(choicesEnabled);
-            yesText.text = (choicesEnabled && selectedChild != null) ? ("Send " + ChildManager.SelectedChild.Name) : "";
+            yesText.text = choicesEnabled ? CurrentEvent.YesButtonText : "";
 
             eventDialogUI.SetActive(true);
 

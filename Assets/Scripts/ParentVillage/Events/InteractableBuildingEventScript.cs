@@ -30,7 +30,8 @@ public abstract class InteractableBuildingEventScript : EventScript
 
     public sealed override bool ChoicesEnabled { get { return ChildManager.SelectedChild == null ? false : ChoicesEnabledImpl; } }
     protected abstract bool ChoicesEnabledImpl { get; }
-    
+    public override string YesButtonText { get { return "Send " + ChildManager.SelectedChild.Name; } }
+
     public abstract int CostToPerform { get; }
     public abstract BuildingType BuildingType { get; }
     protected abstract Vector3 BuildingLocation { get; }
