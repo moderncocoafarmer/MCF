@@ -4,10 +4,10 @@ public class GiveBirthToChildNotification : NotificationScript
 {
     public override string Title
     {
-        get { return ""; }
+        get { return "New Family Member"; }
     }
 
-    public override string Description { get { return "You've had a baby."; } }
+    public override string Description { get { return "You've given birth to a healthy baby."; } }
     public override string OnShowAudioClip { get { return "Audio/Birth"; } }
 
     protected override void OnShow()
