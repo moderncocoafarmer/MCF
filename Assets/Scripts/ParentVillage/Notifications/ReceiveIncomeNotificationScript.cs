@@ -21,7 +21,7 @@ public class ReceiveIncomeNotificationScript : NotificationScript
         }
     }
 
-    public override AudioClip OnShowAudioClip { get { return Resources.Load<AudioClip>("Audio/Money"); } }
+    public override string OnShowAudioClip { get { return "Audio/Money"; } }
 
     protected override void OnShow()
     {

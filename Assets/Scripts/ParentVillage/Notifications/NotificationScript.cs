@@ -8,7 +8,7 @@ public abstract class NotificationScript
 {
     public abstract string Title { get; }
     public abstract string Description { get; }
-    public virtual AudioClip OnShowAudioClip { get { return null; } }
+    public virtual string OnShowAudioClip { get { return ""; } }
 
     protected virtual void OnShow() { }
 

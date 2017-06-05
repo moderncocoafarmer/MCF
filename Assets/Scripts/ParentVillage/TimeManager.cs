@@ -70,7 +70,7 @@ public class TimeManager : MonoBehaviour
     {
         if (ChildManager.CanHaveChild)
         {
-            dialogScript.QueueEvent(new GiveBirthToChildEvent());
+            notificationScript.QueueNotification(new GiveBirthToChildNotification());
         }
 
         quarterYearReached = true;

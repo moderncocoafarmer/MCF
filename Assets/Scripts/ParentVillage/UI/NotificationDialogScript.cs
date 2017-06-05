@@ -67,9 +67,9 @@ public class NotificationDialogScript : MonoBehaviour
             direction = Direction.kIn;
             timeShownFor = 0;
 
-            if (currentNotification.OnShowAudioClip != null)
+            if (!string.IsNullOrEmpty(currentNotification.OnShowAudioClip))
             {
-                audioSource.clip = currentNotification.OnShowAudioClip;
+                audioSource.clip = Resources.Load<AudioClip>(currentNotification.OnShowAudioClip);
                 audioSource.Play();
             }
         }
