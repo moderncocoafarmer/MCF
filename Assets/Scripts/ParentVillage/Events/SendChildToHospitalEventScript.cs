@@ -42,8 +42,6 @@ public class SendChildToHospitalEventScript : InteractableBuildingEventScript
 
     private const int Cost = 135300;
     public const float HealthThreshold = 0.5f * Child.MaxHealth;
-
-    public override float TimeOut { get { return (ChildManager.SelectedChild != null && ChildManager.SelectedChild.Health <= HealthThreshold && IncomeManager.Money >= Cost) ? float.MaxValue : 4; } }
     
     protected override bool ChoicesEnabledImpl { get { return ChildManager.SelectedChild.Health <= HealthThreshold && IncomeManager.Money >= Cost; } }
     public override int CostToPerform { get { return ChildManager.SelectedChild.Health <= HealthThreshold && IncomeManager.Money >= Cost ? Cost : 0; } }

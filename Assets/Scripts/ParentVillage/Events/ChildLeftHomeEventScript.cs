@@ -15,8 +15,6 @@ public class ChildLeftHomeEventScript : EventScript
         }
     }
 
-    public override float TimeOut { get { return 4; } }
-
     private Child childThatWillLeave;
 
     public ChildLeftHomeEventScript()

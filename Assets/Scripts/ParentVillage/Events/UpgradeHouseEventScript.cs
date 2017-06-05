@@ -34,7 +34,6 @@ public class UpgradeHouseEventScript : InteractableBuildingEventScript
 
     // House upgrade = $75?
 
-    public override float TimeOut { get { return IncomeManager.Money >= CostToPerform ? float.MaxValue : 4; } }
     protected override bool ChoicesEnabledImpl { get { return IncomeManager.Money >= CostToPerform; } }
     public override int CostToPerform { get { return 46125; } }
     protected override float LockTime { get { return TimeManager.SecondsPerYear / 3; } }

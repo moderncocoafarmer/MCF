@@ -8,7 +8,6 @@ public class ChildExpelledEventScript : EventScript
     private string description;
     public override string Description { get { return description; } }
     public override string Name { get { return "Child Expelled"; } }
-    public override float TimeOut { get { return 4; } }
 
     private Child childToBeExpelledChild;
 

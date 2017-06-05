@@ -30,9 +30,7 @@ public class EventDialogScript : MonoBehaviour
     #endregion
 
     private Queue<EventScript> events = new Queue<EventScript>();
-
-    private float currentTimer = 0;
-
+    
     public void Awake()
     {
         audioSource = GetComponent<AudioSource>();
@@ -61,16 +59,6 @@ public class EventDialogScript : MonoBehaviour
         if (CurrentEvent == null)
         {
             ShowEvent();
-        }
-        else
-        {
-            // Dont use time manager as it will be paused
-            currentTimer += Time.deltaTime;
-            if (currentTimer > CurrentEvent.TimeOut)
-            {
-                CurrentEvent.No();
-                Hide();
-            }
         }
     }
 
@@ -111,14 +99,11 @@ public class EventDialogScript : MonoBehaviour
             yesText.text = choicesEnabled ? CurrentEvent.YesButtonText : "";
 
             eventDialogUI.SetActive(true);
-
-            currentTimer = 0;
         }
     }
 
     private void Hide()
     {
-        currentTimer = 0;
         CurrentEvent = null;
         eventDialogUI.SetActive(false);
         TimeManager.Paused = timePausedOnEventShow;

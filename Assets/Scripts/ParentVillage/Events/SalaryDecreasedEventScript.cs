@@ -18,8 +18,6 @@ public class SalaryDecreasedEventScript : EventScript
         }
     }
 
-    public override float TimeOut { get { return 4; } }
-
     protected override void OnNo()
     {
         base.OnNo();
