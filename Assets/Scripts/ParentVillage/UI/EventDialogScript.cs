@@ -17,7 +17,8 @@ public class EventDialogScript : MonoBehaviour
     private Text descriptionUI;
 
     private GameObject yesButtonPanel;
-    private Text yesText;
+    private GameObject yesButton;
+    private GameObject childBusyText;
 
     #region Data UI
 
@@ -45,7 +46,8 @@ public class EventDialogScript : MonoBehaviour
         happinessDeltaText = buttonEffects.transform.FindChild("Happiness").GetComponentInChildren<Text>();
 
         yesButtonPanel = eventDialogUI.transform.Find("YesButtonPanel").gameObject;
-        yesText = yesButtonPanel.GetComponentInChildren<Text>();
+        yesButton = yesButtonPanel.transform.FindChild("YesButton").gameObject;
+        childBusyText = yesButtonPanel.transform.FindChild("ChildBusyText").gameObject;
     }
 
     public void Start()
@@ -95,8 +97,14 @@ public class EventDialogScript : MonoBehaviour
             }
 
             bool choicesEnabled = CurrentEvent.ChoicesEnabled;
+            bool childLockedIn = (selectedChild != null) && (selectedChild.BuildingType != BuildingType.Idle);
             yesButtonPanel.SetActive(choicesEnabled);
-            yesText.text = choicesEnabled ? CurrentEvent.YesButtonText : "";
+
+            yesButton.SetActive(!childLockedIn);
+            yesButton.GetComponentInChildren<Text>().text = choicesEnabled ? CurrentEvent.YesButtonText : "";
+
+            childBusyText.SetActive(childLockedIn);
+            childBusyText.GetComponent<Text>().text = childLockedIn ? selectedChild.Name + " is busy at the " + selectedChild.BuildingType.ToString() : "";
 
             eventDialogUI.SetActive(true);
         }

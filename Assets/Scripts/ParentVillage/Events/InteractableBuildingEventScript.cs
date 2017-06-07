@@ -63,7 +63,7 @@ public abstract class InteractableBuildingEventScript : EventScript
         Timers.Add(0);
         Tickers.Add(0);
 
-        GameObject.Find("Home").GetComponent<ChildVillagerCreatorScript>().CreateChildVillager(BuildingLocation);
+        GameObject.Find("InteractableBuildings").transform.FindChild("Home").GetComponent<ChildVillagerCreatorScript>().CreateChildVillager(BuildingLocation);
     }
     
     public void Update()
