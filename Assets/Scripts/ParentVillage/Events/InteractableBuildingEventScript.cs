@@ -161,13 +161,16 @@ public abstract class InteractableBuildingEventScript : EventScript
             return;
         }
 
+        ChildIndicatorUIs[0].transform.parent = FirstChildIndicatorPosition;
         ChildIndicatorUIs[0].transform.localPosition = Vector3.zero;
 
         for (int i = 1; i < ChildIndicatorUIs.Count; ++i)
         {
-            int multiplier = i % 2 == 1 ? 1 : -1;
+            bool rhs = i % 2 == 1;
+            int multiplier = rhs ? 1 : -1;
             int index = (i - 1) / 2;
             Vector3 rendererBounds = ChildIndicatorUIs[i].transform.FindChild("ChildIndicatorPanel").GetComponent<SpriteRenderer>().bounds.extents * 2;
+            ChildIndicatorUIs[i].transform.parent = rhs ? EvenChildIndicatorPositions : OddChildIndicatorPositions;
             ChildIndicatorUIs[i].transform.localPosition = new Vector3(rendererBounds.x * 1.1f, 0, 0) * multiplier * index * ChildIndicatorUIs[i].transform.localScale.x;
         }
     }
