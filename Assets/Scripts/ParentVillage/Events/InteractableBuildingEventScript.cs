@@ -41,6 +41,12 @@ public abstract class InteractableBuildingEventScript : EventScript
     protected List<float> Timers = new List<float>();
     protected List<float> Tickers = new List<float>();
 
+    private List<GameObject> ChildIndicatorUIs = new List<GameObject>();
+    private GameObject ChildIndicatorUI;
+    private Transform FirstChildIndicatorPosition;
+    private Transform EvenChildIndicatorPositions;
+    private Transform OddChildIndicatorPositions;
+
     public abstract string GetOnCompleteDescription(Child child);
     protected abstract DataPacket GetDataPacketPerSecond(Child child);
     protected virtual void OnTimeComplete(Child child) { }
@@ -62,6 +68,8 @@ public abstract class InteractableBuildingEventScript : EventScript
         LockedInChildren.Add(child);
         Timers.Add(0);
         Tickers.Add(0);
+
+        AddChildIndicator(child);
 
         GameObject.Find("InteractableBuildings").transform.FindChild("Home").GetComponent<ChildVillagerCreatorScript>().CreateChildVillager(BuildingLocation);
     }
@@ -96,6 +104,8 @@ public abstract class InteractableBuildingEventScript : EventScript
             Timers.RemoveAt(childIndex);
             Tickers.RemoveAt(childIndex);
 
+            RemoveChildIndicator(child);
+
             if (child.Health > 0)
             {
                 // If they are still alive, we should trigger the on complete behaviour
@@ -103,5 +113,54 @@ public abstract class InteractableBuildingEventScript : EventScript
                 GameObject.Find(EventDialogScript.EventDialogName).GetComponent<EventDialogScript>().QueueEvent(new TaskCompleteScript(GetOnCompleteDescription(child)));
             }
         }
+    }
+
+    public void SetUpIndicatorUI(GameObject childIndicatorUI, Transform firstChildIndicator, Transform evenChildIndicator, Transform oddChildIndicator)
+    {
+        ChildIndicatorUI = childIndicatorUI;
+        FirstChildIndicatorPosition = firstChildIndicator;
+        EvenChildIndicatorPositions = evenChildIndicator;
+        OddChildIndicatorPositions = oddChildIndicator;
+    }
+
+    private void AddChildIndicator(Child child)
+    {
+        // Called after the child is added to the Locked in children list
+        if (LockedInChildren.Count == 1)
+        {
+            GameObject indicator = GameObject.Instantiate(ChildIndicatorUI, FirstChildIndicatorPosition);
+            indicator.transform.localPosition = Vector3.zero;
+            indicator.GetComponent<ChildIndicatorUIScript>().Child = child;
+            ChildIndicatorUIs.Add(indicator);
+        }
+        else if (LockedInChildren.Count % 2 == 0)
+        {
+            // Even so add to rhs
+            int index = (LockedInChildren.Count / 2) - 1;
+            GameObject indicator = GameObject.Instantiate(ChildIndicatorUI, EvenChildIndicatorPositions);
+
+            Vector3 rendererBounds = indicator.transform.FindChild("ChildIndicatorPanel").GetComponent<SpriteRenderer>().bounds.extents * 2;
+            indicator.transform.localPosition = new Vector3(rendererBounds.x * 1.1f, 0, 0) * index * indicator.transform.localScale.x;
+            indicator.GetComponent<ChildIndicatorUIScript>().Child = child;
+            ChildIndicatorUIs.Add(indicator);
+        }
+        else
+        {
+            // Odd > 1 so add to lhs
+            int index = (LockedInChildren.Count / 2) - 1;
+            GameObject indicator = GameObject.Instantiate(ChildIndicatorUI, OddChildIndicatorPositions);
+
+            Vector3 rendererBounds = indicator.transform.FindChild("ChildIndicatorPanel").GetComponent<SpriteRenderer>().bounds.extents * 2;
+            indicator.transform.localPosition = new Vector3(-rendererBounds.x * 1.1f, 0, 0) * index * indicator.transform.localScale.x;
+            indicator.GetComponent<ChildIndicatorUIScript>().Child = child;
+            ChildIndicatorUIs.Add(indicator);
+        }
+    }
+
+    private void RemoveChildIndicator(Child child)
+    {
+        GameObject indicatorUI = ChildIndicatorUIs.Find(x => x.GetComponent<ChildIndicatorUIScript>().Child == child);
+        ChildIndicatorUIs.Remove(indicatorUI);
+        GameObject.Destroy(indicatorUI);
     }
 }

@@ -7,6 +7,10 @@ using UnityEngine;
 public class ShowEventDialogScript : MonoBehaviour {
 
     public string EventName;
+    public GameObject ChildIndicatorUI;
+    public Transform FirstChildPosition;
+    public Transform EvenChildPositions;
+    public Transform OddChildPositions;
 
     private InteractableBuildingEventScript eventScript;
     private GameObject dialog;
@@ -24,6 +28,7 @@ public class ShowEventDialogScript : MonoBehaviour {
 
         Type type = Assembly.GetExecutingAssembly().GetType(EventName);
         eventScript = Activator.CreateInstance(type) as InteractableBuildingEventScript;
+        eventScript.SetUpIndicatorUI(ChildIndicatorUI, FirstChildPosition, EvenChildPositions, OddChildPositions);
 	}
 	
 	// Update is called once per frame

@@ -10,7 +10,7 @@ public class IncomeManager : MonoBehaviour
         kExcellent
     }
 
-    public const int StartingMoney = 105;
+    public const int StartingMoney = 105000;
     public static int Money { get; private set; }
     public static IncomeLevel CurrentIncomeLevel { get; private set; }
     public static int CurrentIncome
