@@ -125,36 +125,24 @@ public abstract class InteractableBuildingEventScript : EventScript
 
     private void AddChildIndicator(Child child)
     {
+        Transform parent = OddChildIndicatorPositions;
+
         // Called after the child is added to the Locked in children list
         if (LockedInChildren.Count == 1)
         {
-            GameObject indicator = GameObject.Instantiate(ChildIndicatorUI, FirstChildIndicatorPosition);
-            indicator.transform.localPosition = Vector3.zero;
-            indicator.GetComponent<ChildIndicatorUIScript>().Child = child;
-            ChildIndicatorUIs.Add(indicator);
+            parent = FirstChildIndicatorPosition;
         }
         else if (LockedInChildren.Count % 2 == 0)
         {
             // Even so add to rhs
-            int index = (LockedInChildren.Count / 2) - 1;
-            GameObject indicator = GameObject.Instantiate(ChildIndicatorUI, EvenChildIndicatorPositions);
-
-            Vector3 rendererBounds = indicator.transform.FindChild("ChildIndicatorPanel").GetComponent<SpriteRenderer>().bounds.extents * 2;
-            indicator.transform.localPosition = new Vector3(rendererBounds.x * 1.1f, 0, 0) * index * indicator.transform.localScale.x;
-            indicator.GetComponent<ChildIndicatorUIScript>().Child = child;
-            ChildIndicatorUIs.Add(indicator);
+            parent = EvenChildIndicatorPositions;
         }
-        else
-        {
-            // Odd > 1 so add to lhs
-            int index = (LockedInChildren.Count / 2) - 1;
-            GameObject indicator = GameObject.Instantiate(ChildIndicatorUI, OddChildIndicatorPositions);
 
-            Vector3 rendererBounds = indicator.transform.FindChild("ChildIndicatorPanel").GetComponent<SpriteRenderer>().bounds.extents * 2;
-            indicator.transform.localPosition = new Vector3(-rendererBounds.x * 1.1f, 0, 0) * index * indicator.transform.localScale.x;
-            indicator.GetComponent<ChildIndicatorUIScript>().Child = child;
-            ChildIndicatorUIs.Add(indicator);
-        }
+        GameObject indicator = GameObject.Instantiate(ChildIndicatorUI, parent);
+        indicator.GetComponent<ChildIndicatorUIScript>().Child = child;
+        ChildIndicatorUIs.Add(indicator);
+
+        LayoutIndicators();
     }
 
     private void RemoveChildIndicator(Child child)
@@ -162,5 +150,25 @@ public abstract class InteractableBuildingEventScript : EventScript
         GameObject indicatorUI = ChildIndicatorUIs.Find(x => x.GetComponent<ChildIndicatorUIScript>().Child == child);
         ChildIndicatorUIs.Remove(indicatorUI);
         GameObject.Destroy(indicatorUI);
+
+        LayoutIndicators();
+    }
+
+    private void LayoutIndicators()
+    {
+        if (ChildIndicatorUIs.Count == 0)
+        {
+            return;
+        }
+
+        ChildIndicatorUIs[0].transform.localPosition = Vector3.zero;
+
+        for (int i = 1; i < ChildIndicatorUIs.Count; ++i)
+        {
+            int multiplier = i % 2 == 1 ? 1 : -1;
+            int index = (i - 1) / 2;
+            Vector3 rendererBounds = ChildIndicatorUIs[i].transform.FindChild("ChildIndicatorPanel").GetComponent<SpriteRenderer>().bounds.extents * 2;
+            ChildIndicatorUIs[i].transform.localPosition = new Vector3(rendererBounds.x * 1.1f, 0, 0) * multiplier * index * ChildIndicatorUIs[i].transform.localScale.x;
+        }
     }
 }
