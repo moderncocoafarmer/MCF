@@ -23,7 +23,7 @@ public class SendChildToMarketEventScript : InteractableBuildingEventScript
             {
                 return "Here you can buy food for your family.";
             }
-            return "Do you wish to send " + ChildManager.SelectedChild.Name + " to the market to buy food for the family? ( CFA " + CostToPerform.ToString() + " )";
+            return "Do you wish to send " + ChildManager.SelectedChild.Name + " to the market to buy food for the family? ( $ " + CostToPerform.ToString() + " )";
         }
     }
 
@@ -31,7 +31,7 @@ public class SendChildToMarketEventScript : InteractableBuildingEventScript
     protected override Vector3 BuildingLocation { get { return GameObject.Find("Market").transform.position; } }
 
     // $52 a year for food per person
-    public override int CostToPerform { get { return 31980 * ChildManager.ChildCount; } }
+    public override int CostToPerform { get { return 52 * ChildManager.ChildCount; } }
     protected override float LockTime { get { return TimeManager.SecondsPerYear * 0.25f; } }
 
     protected override bool ChoicesEnabledImpl { get { return IncomeManager.Money >= CostToPerform; } }

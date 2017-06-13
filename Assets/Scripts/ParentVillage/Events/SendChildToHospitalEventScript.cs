@@ -25,10 +25,10 @@ public class SendChildToHospitalEventScript : InteractableBuildingEventScript
             }
             else if (IncomeManager.Money >= Cost)
             {
-                return selectedChild.Name + " is seriously ill.  Do you wish to pay for treatment? ( CFA " + Math.Abs(CostToPerform).ToString() + " )";
+                return selectedChild.Name + " is seriously ill.  Do you wish to pay for treatment? ( $ " + Math.Abs(CostToPerform).ToString() + " )";
             }
 
-            return selectedChild.Name + " is seriously ill, but can cannot afford to get them treated ( CFA " + Math.Abs(CostToPerform).ToString() + " ).";
+            return selectedChild.Name + " is seriously ill, but can cannot afford to get them treated ( $ " + Math.Abs(CostToPerform).ToString() + " ).";
         }
     }
 
@@ -40,7 +40,7 @@ public class SendChildToHospitalEventScript : InteractableBuildingEventScript
     // $20 to visit doctor
     // $200 to get treated
 
-    private const int Cost = 135300;
+    private const int Cost = 231;
     public const float HealthThreshold = 0.5f * Child.MaxHealth;
     
     protected override bool ChoicesEnabledImpl { get { return ChildManager.SelectedChild.Health <= HealthThreshold && IncomeManager.Money >= Cost; } }

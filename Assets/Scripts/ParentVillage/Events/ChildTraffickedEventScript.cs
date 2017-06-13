@@ -16,7 +16,7 @@ public class ChildTraffickedEventScript : EventScript
             {
                 return childThatWillBeTaken.Name + " your child has been taken by an illegal trafficker and smuggled across the boarder. You are unlikely to see him again.";
             }
-            return childThatWillBeTaken.Name + " your child has been taken by an illegal trafficker and smuggled across the boarder.  Do you want to inform the Police? ( CFA " + Cost.ToString() + " )";
+            return childThatWillBeTaken.Name + " your child has been taken by an illegal trafficker and smuggled across the boarder.  Do you want to inform the Police? ( $ " + Cost.ToString() + " )";
         }
     }
 
@@ -24,7 +24,7 @@ public class ChildTraffickedEventScript : EventScript
     protected override string OnShowAudioClipPath { get { return "Audio/ChildTrafficked"; } }
     protected override string OnYesAudioClipPath { get { return "Audio/Money"; } }
 
-    private const int Cost = 615000;
+    private const int Cost = 1050;
     private Child childThatWillBeTaken;
 
     private static int childrenTrafficked = 0;

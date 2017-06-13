@@ -10,7 +10,7 @@ public class IncomeManager : MonoBehaviour
         kExcellent
     }
 
-    public const int StartingMoney = 61500;
+    public const int StartingMoney = 105;
     public static int Money { get; private set; }
     public static IncomeLevel CurrentIncomeLevel { get; private set; }
     public static int CurrentIncome
@@ -20,16 +20,16 @@ public class IncomeManager : MonoBehaviour
             switch (CurrentIncomeLevel)
             {
                 case IncomeLevel.kExcellent:
-                    return 615000;
+                    return 1050;
 
                 case IncomeLevel.kHigh:
-                    return 461250;
+                    return 788;
 
                 case IncomeLevel.kMedium:
-                    return 307500;
+                    return 525;
 
                 case IncomeLevel.kLow:
-                    return 153750;
+                    return 263;
 
                 default:
                     return 0;
@@ -37,7 +37,7 @@ public class IncomeManager : MonoBehaviour
 
         }
     }
-    public static int IncomeFromChildren { get { return 615000 * ChildManager.ChildrenGraduated; } }
+    public static int IncomeFromChildren { get { return 1050 * ChildManager.ChildrenGraduated; } }
 
     public IncomeManager()
     {

@@ -16,10 +16,10 @@ public class ChildManager : MonoBehaviour
     public static event ChildEventHandler ChildGraduated;
 
     private static int currentChildIndex = 0;
-    public const int MaxChildCount = 7;
     public static float ChildDegredation = 10;
 
     public static bool CanHaveChild { get { return currentChildIndex < MaxChildCount; } }
+    public static int MaxChildCount { get { return Children.Count; } }
     public static int ChildCount { get { return Children.Count(x => x.State == Child.ChildState.kAlive); } }
     public static int ChildrenGraduated { get { return Children.Count(x => x.State == Child.ChildState.kGraduated); } }
     public static Child SelectedChild { get { return Children.Find(x => x.IsSelected); } }
@@ -46,6 +46,11 @@ public class ChildManager : MonoBehaviour
     public void Start()
     {
         // Add two children to begin with
+        GiveBirthToChild();
+        GiveBirthToChild();
+        GiveBirthToChild();
+        GiveBirthToChild();
+        GiveBirthToChild();
         GiveBirthToChild();
         GiveBirthToChild();
     }

@@ -16,10 +16,10 @@ public class PayBillsEventScript : EventScript
         {
             if (IncomeManager.Money < Cost)
             {
-                return "Your bills are due ( CFA " + Cost.ToString() + " ).  You do not have enough money to pay them.";
+                return "Your bills are due ( $ " + Cost.ToString() + " ).  You do not have enough money to pay them.";
             }
 
-            return "Your bills are due ( CFA " + Cost.ToString() + " ).  Do you wish to pay them?";
+            return "Your bills are due ( $ " + Cost.ToString() + " ).  Do you wish to pay them?";
         }
     }
 
@@ -31,7 +31,7 @@ public class PayBillsEventScript : EventScript
     public override bool ChoicesEnabled { get { return IncomeManager.Money >= Cost; } }
     protected override string OnYesAudioClipPath { get { return "Audio/Money"; } }
 
-    public int Cost { get { return 430500 + 31980 * ChildManager.ChildCount; } }
+    public int Cost { get { return 736 + 55 * ChildManager.ChildCount; } }
 
     public override bool DataImplemented { get { return true; } }
     public override DataType EventDataType { get { return DataType.kNo; } }

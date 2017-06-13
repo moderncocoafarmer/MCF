@@ -26,7 +26,7 @@ public class SendChildToWorkEventScript : InteractableBuildingEventScript
     // 5% are actually paid - see how this fits with the game
     // Child locked in for a year
 
-    private const int Salary = 116850;
+    private const int Salary = 200;
     private static bool childPaid = true;
 
     protected override bool ChoicesEnabledImpl { get { return true; } }
@@ -60,7 +60,7 @@ public class SendChildToWorkEventScript : InteractableBuildingEventScript
             return child.Name + " completes a hard year at the cocoa farm, but is not paid.";
         }
 
-        return child.Name + " completes a hard year at the cocoa farm and is paid CFA " + ((int)(Salary * (1 + (child.Education * 0.01f)))).ToString() + ".  In real life, only 5% of children are paid for their work...";
+        return child.Name + " completes a hard year at the cocoa farm and is paid $ " + ((int)(Salary * (1 + (child.Education * 0.01f)))).ToString() + ".  In real life, only 5% of children are paid for their work...";
     }
 
     protected override DataPacket GetDataPacketPerSecond(Child child)

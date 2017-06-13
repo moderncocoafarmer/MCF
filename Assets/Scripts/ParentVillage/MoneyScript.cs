@@ -11,12 +11,12 @@ public class MoneyScript : MonoBehaviour
 	void Start ()
     {
         moneyText = GameObject.Find("MoneyText").GetComponent<Text>();
-        moneyText.text = "CFA " + IncomeManager.Money.ToString();
+        moneyText.text = "$ " + IncomeManager.Money.ToString();
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
-        moneyText.text = "CFA " + IncomeManager.Money.ToString();
+        moneyText.text = "$ " + IncomeManager.Money.ToString();
     }
 }

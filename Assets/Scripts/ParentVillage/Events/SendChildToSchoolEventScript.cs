@@ -25,7 +25,7 @@ public class SendChildToSchoolEventScript : InteractableBuildingEventScript
                 return "You do not have enough money to send " + ChildManager.SelectedChild.Name + " to school.";
             }
 
-            return "Do you wish to send " + ChildManager.SelectedChild.Name + " to school so they will be more likely to earn money in the future? ( CFA " + CostToPerform.ToString() + " for books, equipment and uniform )";
+            return "Do you wish to send " + ChildManager.SelectedChild.Name + " to school so they will be more likely to earn money in the future? ( $ " + CostToPerform.ToString() + " for books, equipment and uniform )";
         }
     }
 
@@ -36,7 +36,7 @@ public class SendChildToSchoolEventScript : InteractableBuildingEventScript
 
     protected override bool ChoicesEnabledImpl { get { return IncomeManager.Money >= CostToPerform; } }
 
-    public override int CostToPerform { get { return 3075; } }
+    public override int CostToPerform { get { return 50; } }
     protected override float LockTime { get { return TimeManager.SecondsPerYear; } }
     protected override string OnShowAudioClipPath { get { return "Audio/School"; } }
 
