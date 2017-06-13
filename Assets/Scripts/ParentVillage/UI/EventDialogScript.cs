@@ -20,6 +20,8 @@ public class EventDialogScript : MonoBehaviour
     private GameObject yesButton;
     private GameObject childBusyText;
 
+    private const float DescriptionHeightWithTitle = 50;
+    
     #region Data UI
 
     private GameObject buttonEffects;
@@ -86,6 +88,10 @@ public class EventDialogScript : MonoBehaviour
 
             nameUI.text = CurrentEvent.Name;
             descriptionUI.text = CurrentEvent.Description;
+
+            Vector3 localPosition = descriptionUI.transform.localPosition;
+            localPosition.y = string.IsNullOrEmpty(CurrentEvent.Name) ? descriptionUI.rectTransform.sizeDelta.y * 0.5f : DescriptionHeightWithTitle;
+            descriptionUI.transform.localPosition = localPosition;
             buttonEffects.SetActive(CurrentEvent.DataImplemented);
 
             if (CurrentEvent.DataImplemented)
