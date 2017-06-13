@@ -20,7 +20,7 @@ public class EventDialogScript : MonoBehaviour
     private GameObject yesButton;
     private GameObject childBusyText;
 
-    private const float DescriptionHeightWithTitle = 50;
+    private const float DescriptionHeightWithTitle = 64;
     
     #region Data UI
 
