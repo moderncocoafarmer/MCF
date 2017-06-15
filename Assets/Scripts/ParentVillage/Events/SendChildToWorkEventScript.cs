@@ -47,6 +47,7 @@ public class SendChildToWorkEventScript : InteractableBuildingEventScript
     {
         if (RandomEventGenerator.IsChildTrafficked(selectedChild))
         {
+            GameObject.Find(EventDialogScript.EventDialogName).GetComponent<EventDialogScript>().QueueEvent(new ChildTraffickedEventScript(selectedChild));
             return false;
         }
 

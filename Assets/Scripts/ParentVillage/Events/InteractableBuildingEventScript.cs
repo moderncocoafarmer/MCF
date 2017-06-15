@@ -63,6 +63,12 @@ public abstract class InteractableBuildingEventScript : EventScript
         IncomeManager.AddMoney(-CostToPerform);
 
         Child child = ChildManager.SelectedChild;
+        if (!ConfirmEventQueued(child))
+        {
+            // We shouldn't lock this child in
+            return;
+        }
+
         child.LockIn(BuildingType);
 
         LockedInChildren.Add(child);

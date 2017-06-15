@@ -139,6 +139,7 @@
     <Compile Include="Assets\Scripts\ParentVillage\ShowEventDialogScript.cs" />
     <Compile Include="Assets\Scripts\ParentVillage\TileMapScript.cs" />
     <Compile Include="Assets\Scripts\ParentVillage\TimeManager.cs" />
+    <Compile Include="Assets\Scripts\ParentVillage\UI\ChildIndicatorUIScript.cs" />
     <Compile Include="Assets\Scripts\ParentVillage\UI\ChildManagerUIScript.cs" />
     <Compile Include="Assets\Scripts\ParentVillage\UI\ChildUIScript.cs" />
     <Compile Include="Assets\Scripts\ParentVillage\UI\DataDialogScript.cs" />
@@ -153,6 +154,7 @@
     <Compile Include="Assets\Scripts\QuitGameScript.cs" />
     <Compile Include="Assets\Scripts\ToolTipScript.cs" />
     <Compile Include="Assets\Scripts\TransitionToSceneScript.cs" />
+    <Compile Include="Assets\Scripts\YDragMoveScript.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

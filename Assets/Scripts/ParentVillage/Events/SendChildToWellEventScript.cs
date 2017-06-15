@@ -39,6 +39,7 @@ public class SendChildToWellEventScript : InteractableBuildingEventScript
     {
         if (RandomEventGenerator.IsChildTrafficked(child))
         {
+            GameObject.Find(EventDialogScript.EventDialogName).GetComponent<EventDialogScript>().QueueEvent(new ChildTraffickedEventScript(child));
             return false;
         }
 

@@ -15,13 +15,13 @@ public class YDragMoveScript : MonoBehaviour
     void Start()
     {
         minYPosition = transform.localPosition.y;
-        maxYPosition = GetComponent<RectTransform>().sizeDelta.y * 0.5f;
+        maxYPosition = GetComponent<RectTransform>().sizeDelta.y;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if ((Input.touchCount < 2) && Input.GetMouseButton(0))
+        if ((Input.touchCount > 0) || Input.GetMouseButton(0))
         {
             if (!mouseDownLastFrame)
             {

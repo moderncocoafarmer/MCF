@@ -43,19 +43,7 @@ public class ShowEventDialogScript : MonoBehaviour {
         if (!dialog.GetComponent<EventDialogScript>().DialogOpen)
         {
             click.Play();
-
-            Child selectedChild = ChildManager.SelectedChild;
-            if (selectedChild != null)
-            {
-                if (eventScript.ConfirmEventQueued(selectedChild))
-                {
-                    dialog.GetComponent<EventDialogScript>().QueueEvent(eventScript);
-                }
-            }
-            else
-            {
-                dialog.GetComponent<EventDialogScript>().QueueEvent(eventScript);
-            }
+            dialog.GetComponent<EventDialogScript>().QueueEvent(eventScript);
         }
     }
 }
