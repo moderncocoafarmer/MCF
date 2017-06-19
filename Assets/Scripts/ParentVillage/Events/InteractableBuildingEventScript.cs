@@ -116,7 +116,7 @@ public abstract class InteractableBuildingEventScript : EventScript
             {
                 // If they are still alive, we should trigger the on complete behaviour
                 OnTimeComplete(child);
-                GameObject.Find(EventDialogScript.EventDialogName).GetComponent<EventDialogScript>().QueueEvent(new TaskCompleteScript(GetOnCompleteDescription(child)));
+                GameObject.Find(NotificationDialogScript.NotificationDialogName).GetComponent<NotificationDialogScript>().QueueNotification(new TaskCompleteNotification(GetOnCompleteDescription(child)));
             }
         }
     }

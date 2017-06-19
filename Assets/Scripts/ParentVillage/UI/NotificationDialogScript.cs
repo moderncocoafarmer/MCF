@@ -100,6 +100,11 @@ public class NotificationDialogScript : MonoBehaviour
         }
     }
 
+    public void Hide()
+    {
+        direction = Direction.kOut;
+    }
+
     public void QueueNotification(NotificationScript notification)
     {
         notifications.Enqueue(notification);
