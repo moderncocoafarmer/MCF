@@ -20,8 +20,21 @@ public abstract class InteractableBuildingEventScript : EventScript
     {
         get
         {
-            return ChildManager.SelectedChild == null ? BuildingDescription + "\n\nSelect a child using the icons at the top and click on this building to send them here."
-                : ChildSelectedDescription;
+            Child selectedChild = ChildManager.SelectedChild;
+            string buildingDescription = BuildingDescription;
+
+            if (selectedChild == null)
+            {
+                return buildingDescription + "\n\nSelect a child using the icons at the top and click on this building to send them here.";
+            }
+            else if (selectedChild.BuildingType != BuildingType.Idle)
+            {
+                return buildingDescription;
+            }
+            else
+            {
+                return ChildSelectedDescription;
+            }
         }
     }
 
