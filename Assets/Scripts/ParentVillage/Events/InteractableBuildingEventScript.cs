@@ -157,6 +157,10 @@ public abstract class InteractableBuildingEventScript : EventScript
             parent = EvenChildIndicatorPositions;
         }
 
+        Debug.Assert(ChildIndicatorUI != null);
+        Debug.Assert(parent != null);
+        Debug.Assert(child != null);
+
         GameObject indicator = GameObject.Instantiate(ChildIndicatorUI, parent);
         indicator.GetComponent<ChildIndicatorUIScript>().Child = child;
         ChildIndicatorUIs.Add(indicator);

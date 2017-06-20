@@ -58,7 +58,6 @@ public class RandomEventGenerator : MonoBehaviour {
         float value = Random.Range(0.0f, 150.0f);
         if (child.Safety + child.Happiness < value)
         {
-            dialog.QueueEvent(new ChildTraffickedEventScript(child));
             return true;
         }
 
