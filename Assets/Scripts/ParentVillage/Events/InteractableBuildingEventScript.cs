@@ -7,7 +7,7 @@ public enum BuildingType
     Idle,
     Home,
     Mosque,
-    Work,
+    Farm,
     School,
     Hospital,
     Market,

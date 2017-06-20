@@ -34,7 +34,7 @@ public class SendChildToWorkEventScript : InteractableBuildingEventScript
     protected override float LockTime { get { return TimeManager.SecondsPerYear; } }
     protected override string OnShowAudioClipPath { get { return "Audio/Work"; } }
 
-    public override BuildingType BuildingType { get { return BuildingType.Work; } }
+    public override BuildingType BuildingType { get { return BuildingType.Farm; } }
     protected override Vector3 BuildingLocation { get { return GameObject.Find("Farm").transform.position; } }
 
     public override bool DataImplemented { get { return true; } }
