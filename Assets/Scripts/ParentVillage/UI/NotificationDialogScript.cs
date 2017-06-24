@@ -10,6 +10,7 @@ public class NotificationDialogScript : MonoBehaviour
     private Vector3 resetPosition;
     private float width;
     private const float ShownTime = 4;
+    private const float Speed = 3;
     private float timeShownFor;
     private Direction direction = Direction.kStopped;
 
@@ -80,7 +81,7 @@ public class NotificationDialogScript : MonoBehaviour
         float distanceToCover = 1.1f * width;
         if (direction == Direction.kIn)
         {
-            transform.localPosition += new Vector3(distanceToCover * Time.deltaTime, 0, 0);
+            transform.localPosition += new Vector3(distanceToCover * Time.deltaTime * Speed, 0, 0);
 
             if (transform.localPosition.x >= resetPosition.x + distanceToCover)
             {
@@ -89,7 +90,7 @@ public class NotificationDialogScript : MonoBehaviour
         }
         else if (direction == Direction.kOut)
         {
-            transform.localPosition -= new Vector3(distanceToCover * Time.deltaTime, 0, 0);
+            transform.localPosition -= new Vector3(distanceToCover * Time.deltaTime * Speed, 0, 0);
 
             if (transform.localPosition.x <= resetPosition.x)
             {
