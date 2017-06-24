@@ -8,7 +8,7 @@ public class SendChildToHospitalEventScript : InteractableBuildingEventScript
 {
     public override string Name
     {
-        get { return "Hôpital  ( 4 months )"; }
+        get { return "Hôpital  ( 10 days )"; }
     }
 
     protected override string BuildingDescription { get { return "A place of healing if you can pay."; } }
@@ -45,7 +45,7 @@ public class SendChildToHospitalEventScript : InteractableBuildingEventScript
     
     protected override bool ChoicesEnabledImpl { get { return ChildManager.SelectedChild.Health <= HealthThreshold && IncomeManager.Money >= Cost; } }
     public override int CostToPerform { get { return ChildManager.SelectedChild.Health <= HealthThreshold && IncomeManager.Money >= Cost ? Cost : 0; } }
-    protected override float LockTime { get { return TimeManager.SecondsPerYear / 3; } }
+    protected override float LockTime { get { return TimeManager.SecondsPerMonth / 3; } }
     protected override string OnShowAudioClipPath { get { return "Audio/Hospital"; } }
 
     public override BuildingType BuildingType { get { return BuildingType.Hospital; } }

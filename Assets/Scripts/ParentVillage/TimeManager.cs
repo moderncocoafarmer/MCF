@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class TimeManager : MonoBehaviour
 {
-    public const float SecondsPerYear = 45;
+    public const float SecondsPerMonth = 30;
+    public const float SecondsPerYear = SecondsPerMonth * 12;
 
     public static int CurrentYearNumber { get { return (int)(TotalGameTimePassed / SecondsPerYear) + 1; } }
     public static float TotalGameTimePassed { get; private set; }
+    public static float CurrentTimeInMonth { get; private set; }
     public static float CurrentTimeInYear { get; private set; }
     public static float DeltaTime { get; private set; }
     public static bool Paused { get; set; }
@@ -24,6 +26,7 @@ public class TimeManager : MonoBehaviour
         dialogScript.QueueEvent(new InstructionEventScript());
         notificationScript = GameObject.Find(NotificationDialogScript.NotificationDialogName).GetComponent<NotificationDialogScript>();
         TotalGameTimePassed = 0;
+        CurrentTimeInMonth = 0;
         CurrentTimeInYear = 0;
         DeltaTime = 0;
         Paused = false; // Instruction event will keep game paused otherwise when it launches on startup
@@ -43,10 +46,15 @@ public class TimeManager : MonoBehaviour
 
         TotalGameTimePassed += DeltaTime;
         CurrentTimeInYear += DeltaTime;
+        CurrentTimeInMonth += DeltaTime;
+
+        if (CurrentTimeInMonth > SecondsPerMonth)
+        {
+            NewMonth();
+        }
 
         if (CurrentTimeInYear > SecondsPerYear)
         {
-            CurrentTimeInYear = 0;
             NewYear();
         }
         else if (!quarterYearReached && CurrentTimeInYear > SecondsPerYear * 0.25f)
@@ -59,17 +67,24 @@ public class TimeManager : MonoBehaviour
         }
 	}
 
+    private void NewMonth()
+    {
+        CurrentTimeInMonth = 0;
+        notificationScript.QueueNotification(new ReceiveIncomeNotificationScript());
+    }
+
     private void NewYear()
     {
-        notificationScript.QueueNotification(new ReceiveIncomeNotificationScript());
+        CurrentTimeInYear = 0;
         midYearReached = false;
         quarterYearReached = false;
     }
 
     private void QuarterYear()
     {
-        if (ChildManager.CanHaveChild)
+        if (ChildManager.CanHaveChild && (CurrentYearNumber % 2 == 0))
         {
+            // Have a child every two years
             notificationScript.QueueNotification(new GiveBirthToChildNotification());
         }
 

@@ -5,7 +5,7 @@ public class SendChildToWorkEventScript : InteractableBuildingEventScript
 {
     public override string Name
     {
-        get { return "Cocoa Farm  ( 1 Year )"; }
+        get { return "Cocoa Farm  ( 1 Month )"; }
     }
 
     protected override string BuildingDescription
@@ -26,12 +26,12 @@ public class SendChildToWorkEventScript : InteractableBuildingEventScript
     // 5% are actually paid - see how this fits with the game
     // Child locked in for a year
 
-    private const int Salary = 200;
+    private const int Salary = 18;
     private static bool childPaid = true;
 
     protected override bool ChoicesEnabledImpl { get { return true; } }
     public override int CostToPerform { get { return 0; } }
-    protected override float LockTime { get { return TimeManager.SecondsPerYear; } }
+    protected override float LockTime { get { return TimeManager.SecondsPerMonth; } }
     protected override string OnShowAudioClipPath { get { return "Audio/Work"; } }
 
     public override BuildingType BuildingType { get { return BuildingType.Farm; } }
@@ -58,19 +58,19 @@ public class SendChildToWorkEventScript : InteractableBuildingEventScript
     {
         if (!childPaid)
         {
-            return child.Name + " completes a hard year at the cocoa farm, but is not paid.";
+            return child.Name + " completes a hard month at the cocoa farm, but is not paid.";
         }
 
-        return child.Name + " completes a hard year at the cocoa farm and is paid $ " + ((int)(Salary * (1 + (child.Education * 0.01f)))).ToString() + ".  In real life, only 5% of children are paid for their work...";
+        return child.Name + " completes a hard month at the cocoa farm and is paid $ " + ((int)(Salary * (1 + (child.Education * 0.01f)))).ToString() + ".  In real life, only 5% of children are paid for their work...";
     }
 
     protected override DataPacket GetDataPacketPerSecond(Child child)
     {
         return new DataPacket(
-            -50 / LockTime, 
-            -50 / LockTime, 
+            -10 / LockTime, 
+            -10 / LockTime, 
             0, 
-            -50 / LockTime);
+            -10 / LockTime);
     }
 
     protected override void OnTimeComplete(Child child)

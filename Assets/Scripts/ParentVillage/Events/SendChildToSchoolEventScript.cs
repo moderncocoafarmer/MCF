@@ -8,7 +8,7 @@ public class SendChildToSchoolEventScript : InteractableBuildingEventScript
 {
     public override string Name
     {
-        get { return "School  ( 1 Year )"; }
+        get { return "School  ( 1 Month )"; }
     }
 
     protected override string BuildingDescription
@@ -36,8 +36,8 @@ public class SendChildToSchoolEventScript : InteractableBuildingEventScript
 
     protected override bool ChoicesEnabledImpl { get { return IncomeManager.Money >= CostToPerform; } }
 
-    public override int CostToPerform { get { return 50; } }
-    protected override float LockTime { get { return TimeManager.SecondsPerYear; } }
+    public override int CostToPerform { get { return 4; } }
+    protected override float LockTime { get { return TimeManager.SecondsPerMonth; } }
     protected override string OnShowAudioClipPath { get { return "Audio/School"; } }
 
     public override BuildingType BuildingType { get { return BuildingType.School; } }
@@ -46,8 +46,8 @@ public class SendChildToSchoolEventScript : InteractableBuildingEventScript
     public override bool DataImplemented { get { return true; } }
     public override string HealthDeltaText { get { return "No change"; } }
     public override string SafetyDeltaText { get { return "No change"; } }
-    public override string EducationDeltaText { get { return "+20%"; } }
-    public override string HappinessDeltaText { get { return "+10%"; } }
+    public override string EducationDeltaText { get { return "+5%"; } }
+    public override string HappinessDeltaText { get { return "+3%"; } }
 
     public override string GetOnCompleteDescription(Child child)
     {
@@ -63,8 +63,8 @@ public class SendChildToSchoolEventScript : InteractableBuildingEventScript
         return new DataPacket(
             0 / LockTime,
             0 / LockTime,
-            20 / LockTime,
-            10 / LockTime);
+            5 / LockTime,
+            3 / LockTime);
     }
 
     protected override void OnTimeComplete(Child child)

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class SendChildToMarketEventScript : InteractableBuildingEventScript
 {
-    public override string Name { get { return "Market  ( 3 Months )"; } }
+    public override string Name { get { return "Market  ( 7 days )"; } }
 
     protected override string BuildingDescription
     {
@@ -31,18 +31,18 @@ public class SendChildToMarketEventScript : InteractableBuildingEventScript
     protected override Vector3 BuildingLocation { get { return GameObject.Find("Market").transform.position; } }
 
     // $52 a year for food per person
-    public override int CostToPerform { get { return 52 * ChildManager.ChildCount; } }
-    protected override float LockTime { get { return TimeManager.SecondsPerYear * 0.25f; } }
+    public override int CostToPerform { get { return 4 * ChildManager.ChildCount; } }
+    protected override float LockTime { get { return TimeManager.SecondsPerMonth * 0.25f; } }
 
     protected override bool ChoicesEnabledImpl { get { return IncomeManager.Money >= CostToPerform; } }
 
     protected override string OnShowAudioClipPath { get { return "Audio/Market"; } }
 
     public override bool DataImplemented { get { return true; } }
-    public override string HealthDeltaText { get { return "+10% for all children"; } }
+    public override string HealthDeltaText { get { return "+5% for all children"; } }
     public override string SafetyDeltaText { get { return "No change"; } }
     public override string EducationDeltaText { get { return "No change"; } }
-    public override string HappinessDeltaText { get { return "+20% for all children"; } }
+    public override string HappinessDeltaText { get { return "+10% for all children"; } }
 
     public override bool ConfirmEventQueued(Child selectedChild)
     {
@@ -68,6 +68,6 @@ public class SendChildToMarketEventScript : InteractableBuildingEventScript
 
     protected override void OnTimeComplete(Child child)
     {
-        ChildManager.ApplyEventToAllChildren(new DataPacket(10, 0, 0, 20));
+        ChildManager.ApplyEventToAllChildren(new DataPacket(5, 0, 0, 10));
     }
 }

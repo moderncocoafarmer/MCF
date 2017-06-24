@@ -11,7 +11,7 @@ public class ReceiveIncomeNotificationScript : NotificationScript
     {
         get
         {
-            string income = "Your husband's annual salary of $ " + IncomeManager.CurrentIncome.ToString() + " has been paid.";
+            string income = "Your husband's monthly salary of $ " + IncomeManager.CurrentIncome.ToString() + " has been paid.";
             if (ChildManager.ChildrenGraduated > 0)
             {
                 income += "  Your children send you back $ " + IncomeManager.IncomeFromChildren.ToString();

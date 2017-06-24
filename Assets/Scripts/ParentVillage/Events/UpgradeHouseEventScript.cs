@@ -8,7 +8,7 @@ public class UpgradeHouseEventScript : InteractableBuildingEventScript
 {
     public override string Name
     {
-        get { return "Home  ( 4 Months )"; }
+        get { return "Home  ( 10 Days )"; }
     }
 
     protected override string BuildingDescription
@@ -35,18 +35,18 @@ public class UpgradeHouseEventScript : InteractableBuildingEventScript
     // House upgrade = $75?
 
     protected override bool ChoicesEnabledImpl { get { return IncomeManager.Money >= CostToPerform; } }
-    public override int CostToPerform { get { return 75; } }
-    protected override float LockTime { get { return TimeManager.SecondsPerYear / 3; } }
+    public override int CostToPerform { get { return 20; } }
+    protected override float LockTime { get { return TimeManager.SecondsPerMonth / 3; } }
     protected override string OnShowAudioClipPath { get { return "Audio/Home"; } }
 
     public override BuildingType BuildingType { get { return BuildingType.Home; } }
     protected override Vector3 BuildingLocation { get { return GameObject.Find("Home").transform.position; } }
 
     public override bool DataImplemented { get { return true; } }
-    public override string HealthDeltaText { get { return "+5% per year for all children"; } }
-    public override string SafetyDeltaText { get { return "+5% per year for all children"; } }
-    public override string EducationDeltaText { get { return "+5% per year for all children"; } }
-    public override string HappinessDeltaText { get { return "+5% per year for all children"; } }
+    public override string HealthDeltaText { get { return "+2% per month for all children"; } }
+    public override string SafetyDeltaText { get { return "+2% per month for all children"; } }
+    public override string EducationDeltaText { get { return "+2% per month for all children"; } }
+    public override string HappinessDeltaText { get { return "+2% per month for all children"; } }
 
     public override string GetOnCompleteDescription(Child child)
     {
@@ -61,6 +61,6 @@ public class UpgradeHouseEventScript : InteractableBuildingEventScript
     protected override void OnTimeComplete(Child child)
     {
         // Remove degredation
-        ChildManager.ChildDegredation -= 5;
+        ChildManager.ChildDegredation -= 2;
     }
 }

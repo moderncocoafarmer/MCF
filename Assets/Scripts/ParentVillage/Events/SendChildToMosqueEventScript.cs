@@ -36,9 +36,9 @@ public class SendChildToMosqueEventScript : InteractableBuildingEventScript
 
     public override bool DataImplemented { get { return true; } }
     public override string HealthDeltaText { get { return "No change"; } }
-    public override string SafetyDeltaText { get { return "+3% for all children"; } }
-    public override string EducationDeltaText { get { return "+2% for all children"; } }
-    public override string HappinessDeltaText { get { return "+5% for all children"; } }
+    public override string SafetyDeltaText { get { return "+2% for all children"; } }
+    public override string EducationDeltaText { get { return "+1% for all children"; } }
+    public override string HappinessDeltaText { get { return "+3% for all children"; } }
 
     public override string GetOnCompleteDescription(Child child)
     {
@@ -49,15 +49,15 @@ public class SendChildToMosqueEventScript : InteractableBuildingEventScript
     {
         return new DataPacket(
             0,
-            3 / LockTime,
             2 / LockTime,
-            5 / LockTime);
+            1 / LockTime,
+            3 / LockTime);
     }
 
     protected override void OnTimeComplete(Child child)
     {
         // Undo the incremental changes on this child
-        child.Apply(new DataPacket(0, -3, -2, -5));
-        ChildManager.ApplyEventToAllChildren(new DataPacket(0, 3, 2, 5));
+        child.Apply(new DataPacket(0, -2, -1, -3));
+        ChildManager.ApplyEventToAllChildren(new DataPacket(0, 2, 1, 3));
     }
 }

@@ -5,7 +5,7 @@ public class SendChildToWellEventScript : InteractableBuildingEventScript
 {
     public override string Name
     {
-        get { return "Well  ( 2 Months )"; }
+        get { return "Well  ( 5 days )"; }
     }
 
     protected override string BuildingDescription
@@ -23,17 +23,17 @@ public class SendChildToWellEventScript : InteractableBuildingEventScript
     
     protected override bool ChoicesEnabledImpl { get { return true; } }
     public override int CostToPerform { get { return 0; } }
-    protected override float LockTime { get { return TimeManager.SecondsPerYear / 6.0f; } }
+    protected override float LockTime { get { return TimeManager.SecondsPerMonth / 6.0f; } }
 
     public override BuildingType BuildingType { get { return BuildingType.Well; } }
     protected override Vector3 BuildingLocation { get { return GameObject.Find("Well").transform.position; } }
     protected override string OnShowAudioClipPath { get { return "Audio/Well"; } }
 
     public override bool DataImplemented { get { return true; } }
-    public override string HealthDeltaText { get { return "+10% for all children"; } }
+    public override string HealthDeltaText { get { return "+5% for all children"; } }
     public override string SafetyDeltaText { get { return "No change"; } }
     public override string EducationDeltaText { get { return "No change"; } }
-    public override string HappinessDeltaText { get { return "+10% for all children"; } }
+    public override string HappinessDeltaText { get { return "+5% for all children"; } }
 
     public override bool ConfirmEventQueued(Child child)
     {
@@ -60,6 +60,6 @@ public class SendChildToWellEventScript : InteractableBuildingEventScript
     {
         base.OnTimeComplete(child);
 
-        ChildManager.ApplyEventToAllChildren(new DataPacket(10, 0, 0, 10));
+        ChildManager.ApplyEventToAllChildren(new DataPacket(5, 0, 0, 5));
     }
 }

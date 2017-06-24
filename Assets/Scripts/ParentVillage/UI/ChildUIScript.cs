@@ -54,9 +54,9 @@ public class ChildUIScript : MonoBehaviour
             Child.Apply(
                 new DataPacket(
                 0,
-                -ChildManager.ChildDegredation / TimeManager.SecondsPerYear,
+                -ChildManager.ChildDegredation / TimeManager.SecondsPerMonth,
                 0,
-                -ChildManager.ChildDegredation / TimeManager.SecondsPerYear));
+                -ChildManager.ChildDegredation / TimeManager.SecondsPerMonth));
 
             secondTimer = 0;
         }
