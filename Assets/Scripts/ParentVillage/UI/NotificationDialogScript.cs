@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(Collider2D))]
 public class NotificationDialogScript : MonoBehaviour
 {
     public const string NotificationDialogName = "NotificationDialog";
@@ -44,6 +45,13 @@ public class NotificationDialogScript : MonoBehaviour
 	void Update ()
     {
         ShowEvent();
+
+        if (Input.touchCount > 0 && Input.GetTouch(0).deltaPosition.x < 0)
+        {
+            // Swipe to the left so lerp out the notification dialog
+            direction = Direction.kOut;
+        }
+
         Lerp();
 
         if (direction == Direction.kStopped)
