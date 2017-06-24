@@ -18,4 +18,9 @@ public class ChildIndicatorUIScript : MonoBehaviour
     }
 
     private TextMesh childNameText;
+
+    private void OnMouseDown()
+    {
+        GameObject.Find(DataDialogScript.DataDialogName).GetComponent<DataDialogScript>().Show(Child);
+    }
 }
