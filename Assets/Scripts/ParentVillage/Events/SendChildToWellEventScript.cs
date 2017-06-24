@@ -56,9 +56,9 @@ public class SendChildToWellEventScript : InteractableBuildingEventScript
         return new DataPacket(0, 0, 0, 0);
     }
 
-    protected override void OnTimeComplete(Child child)
+    protected override void OnAliveChildTimeComplete(Child child)
     {
-        base.OnTimeComplete(child);
+        base.OnAliveChildTimeComplete(child);
 
         ChildManager.ApplyEventToAllChildren(new DataPacket(5, 0, 0, 5));
     }

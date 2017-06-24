@@ -54,7 +54,7 @@ public class SendChildToMosqueEventScript : InteractableBuildingEventScript
             3 / LockTime);
     }
 
-    protected override void OnTimeComplete(Child child)
+    protected override void OnAliveChildTimeComplete(Child child)
     {
         // Undo the incremental changes on this child
         child.Apply(new DataPacket(0, -2, -1, -3));

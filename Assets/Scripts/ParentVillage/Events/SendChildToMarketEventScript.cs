@@ -66,7 +66,7 @@ public class SendChildToMarketEventScript : InteractableBuildingEventScript
         return new DataPacket(0, 0, 0, 0);
     }
 
-    protected override void OnTimeComplete(Child child)
+    protected override void OnAliveChildTimeComplete(Child child)
     {
         ChildManager.ApplyEventToAllChildren(new DataPacket(5, 0, 0, 10));
     }

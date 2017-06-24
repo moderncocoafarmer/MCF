@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SendChildToWorkEventScript : InteractableBuildingEventScript
@@ -27,13 +28,13 @@ public class SendChildToWorkEventScript : InteractableBuildingEventScript
     // Child locked in for a year
 
     private const int Salary = 18;
-    private static bool childPaid = true;
+    private Queue<bool> ChildCanLeaveAtEndOfYearRecords = new Queue<bool>();
 
     protected override bool ChoicesEnabledImpl { get { return true; } }
     public override int CostToPerform { get { return 0; } }
     protected override float LockTime { get { return TimeManager.SecondsPerMonth; } }
     protected override string OnShowAudioClipPath { get { return "Audio/Work"; } }
-
+    
     public override BuildingType BuildingType { get { return BuildingType.Farm; } }
     protected override Vector3 BuildingLocation { get { return GameObject.Find("Farm").transform.position; } }
 
@@ -51,12 +52,17 @@ public class SendChildToWorkEventScript : InteractableBuildingEventScript
             return false;
         }
 
-        return base.ConfirmEventQueued(selectedChild);
+        // Decide when child is locked in whether they will be paid or not
+        // This is so we can know whether to create the child going home
+        ChildCanLeaveAtEndOfYearRecords.Enqueue(UnityEngine.Random.Range(0.0f, 1.0f) < 0.9f);
+        return true;
     }
 
     public override string GetOnCompleteDescription(Child child)
     {
-        if (!childPaid)
+        Debug.Assert(ChildCanLeaveAtEndOfYearRecords.Count > 0);
+
+        if (!ChildCanLeaveAtEndOfYearRecords.Peek())
         {
             return child.Name + " completes a hard month at the cocoa farm, but is not paid.";
         }
@@ -73,19 +79,27 @@ public class SendChildToWorkEventScript : InteractableBuildingEventScript
             -10 / LockTime);
     }
 
-    protected override void OnTimeComplete(Child child)
+    protected override void OnAliveChildTimeComplete(Child child)
     {
-        base.OnTimeComplete(child);
+        base.OnAliveChildTimeComplete(child);
 
-        if (UnityEngine.Random.Range(0.0f, 1.0f) >= 0.9f)
+        Debug.Assert(ChildCanLeaveAtEndOfYearRecords.Count > 0);
+
+        if (!ChildCanLeaveAtEndOfYearRecords.Peek())
         {
-            // Dont increment number of times sent, and don't pay the child
-            childPaid = false;
             GameObject.Find(EventDialogScript.EventDialogName).GetComponent<EventDialogScript>().QueueEvent(new PlagueOfBlackPodEventScript(child));
             return;
         }
 
-        childPaid = true;
+        // Only pay child if they leave at end of year
         IncomeManager.AddMoney((int)(Salary * (1 + (child.Education * 0.01f))));
+    }
+
+    protected override void OnChildTimeComplete(Child child)
+    {
+        base.OnChildTimeComplete(child);
+
+        Debug.Assert(ChildCanLeaveAtEndOfYearRecords.Count > 0);
+        ChildCanLeaveAtEndOfYearRecords.Dequeue();
     }
 }

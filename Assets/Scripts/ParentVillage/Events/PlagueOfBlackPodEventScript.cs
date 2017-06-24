@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine;
 
 public class PlagueOfBlackPodEventScript : EventScript
 {
@@ -15,7 +16,7 @@ public class PlagueOfBlackPodEventScript : EventScript
     public PlagueOfBlackPodEventScript(Child child)
     {
         childAtFarm = child;
-        description = "Ripe pods fall to the ground, withered and useless.  Crop harvest has been halved and " + child.Name + " must stay at the farm for another month";
+        description = "Ripe pods fall to the ground, withered and useless.  Crop harvest has been halved and " + child.Name + " must return to the farm for another month.";
     }
 
     protected override void OnNo()
@@ -30,7 +31,7 @@ public class PlagueOfBlackPodEventScript : EventScript
 
         childAtFarm.IsSelected = true;
 
-        new SendChildToWorkEventScript().Yes();
+        GameObject.Find("FarmSymbol").GetComponentInChildren<ShowEventDialogScript>().EventScript.Yes();
 
         childAtFarm.IsSelected = false;
 

@@ -13,6 +13,7 @@ public class ShowEventDialogScript : MonoBehaviour {
     public Transform OddChildPositions;
 
     private InteractableBuildingEventScript eventScript;
+    public InteractableBuildingEventScript EventScript { get { return eventScript; } }
     private GameObject dialog;
     private AudioSource click;
 

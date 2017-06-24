@@ -67,9 +67,9 @@ public class SendChildToSchoolEventScript : InteractableBuildingEventScript
             3 / LockTime);
     }
 
-    protected override void OnTimeComplete(Child child)
+    protected override void OnAliveChildTimeComplete(Child child)
     {
-        base.OnTimeComplete(child);
+        base.OnAliveChildTimeComplete(child);
 
         if (child.Happiness <= 20 && UnityEngine.Random.Range(0, 1) > 0.75f)
         {

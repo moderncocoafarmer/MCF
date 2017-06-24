@@ -62,7 +62,13 @@ public abstract class InteractableBuildingEventScript : EventScript
 
     public abstract string GetOnCompleteDescription(Child child);
     protected abstract DataPacket GetDataPacketPerSecond(Child child);
-    protected virtual void OnTimeComplete(Child child) { }
+
+    // Called for any child whose state is alive when their time ends
+    // Called before OnChildTimeComplete
+    protected virtual void OnAliveChildTimeComplete(Child child) { }
+
+    // Called for any child when their time ends, no matter their state
+    protected virtual void OnChildTimeComplete(Child child) { }
 
     public virtual bool ConfirmEventQueued(Child selectedChild)
     {
@@ -123,14 +129,19 @@ public abstract class InteractableBuildingEventScript : EventScript
             Timers.RemoveAt(childIndex);
             Tickers.RemoveAt(childIndex);
 
+            Transform home = GameObject.Find("InteractableBuildings").transform.FindChild("Home");
+            home.GetComponent<ChildVillagerCreatorScript>().CreateChildVillager(BuildingLocation, home.position);
+
             RemoveChildIndicator(child);
 
-            if (child.Health > 0)
+            if (child.State == Child.ChildState.kAlive)
             {
                 // If they are still alive, we should trigger the on complete behaviour
-                OnTimeComplete(child);
+                OnAliveChildTimeComplete(child);
                 GameObject.Find(NotificationDialogScript.NotificationDialogName).GetComponent<NotificationDialogScript>().QueueNotification(new TaskCompleteNotification(GetOnCompleteDescription(child)));
             }
+
+            OnChildTimeComplete(child);
         }
     }
 

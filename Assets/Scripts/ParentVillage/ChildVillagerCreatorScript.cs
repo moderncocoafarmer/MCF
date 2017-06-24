@@ -8,10 +8,15 @@ public class ChildVillagerCreatorScript : MonoBehaviour {
 
     public void CreateChildVillager(Vector3 destination)
     {
-        if ((destination - transform.position).sqrMagnitude > ChildVillagerScript.Threshold)
+        CreateChildVillager(transform.position, destination);
+    }
+
+    public void CreateChildVillager(Vector3 source, Vector3 destination)
+    {
+        if ((destination - source).sqrMagnitude > ChildVillagerScript.Threshold)
         {
             GameObject childVillagerInstance = Instantiate(childVillager);
-            childVillagerInstance.transform.position = transform.position;
+            childVillagerInstance.transform.position = source;
             childVillagerInstance.GetComponent<ChildVillagerScript>().Destination = destination;
         }
     }
