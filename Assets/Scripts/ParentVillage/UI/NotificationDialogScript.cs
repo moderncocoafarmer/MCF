@@ -50,6 +50,9 @@ public class NotificationDialogScript : MonoBehaviour
         {
             // Swipe to the left so lerp out the notification dialog
             direction = Direction.kOut;
+
+            // We do not want any other input interactions if we are interacting with the dialog
+            InputManager.Flush();
         }
 
         Lerp();
