@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(Collider2D))]
 [RequireComponent(typeof(AudioSource))]
@@ -16,8 +17,6 @@ public class ShowEventDialogScript : MonoBehaviour {
     public InteractableBuildingEventScript EventScript { get { return eventScript; } }
     private GameObject dialog;
     private AudioSource click;
-
-    private bool clicked = false;
 
     void Awake()
     {
@@ -38,26 +37,12 @@ public class ShowEventDialogScript : MonoBehaviour {
 	void Update ()
     {
         eventScript.Update();
-
-        if (clicked)
-        {
-            HandleClick();
-            clicked = false;
-        }
 	}
     
-    private void OnMouseDown()
+    private void OnMouseUp()
     {
-        // On mouse down happens before update, so we need to register the click here, but handle it in update after
-        // other elements have had a chance to cancel the input through InputManager.Flush();
-        clicked = true;
-    }
-
-    private void HandleClick()
-    {
-        if (!InputManager.PressedThisFrame)
+        if (EventSystem.current.IsPointerOverGameObject())
         {
-            // The mouse is down but we have clicked on an element in front of this object
             return;
         }
 
