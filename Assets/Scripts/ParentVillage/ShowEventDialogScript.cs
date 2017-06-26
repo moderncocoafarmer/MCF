@@ -39,9 +39,10 @@ public class ShowEventDialogScript : MonoBehaviour {
         eventScript.Update();
 	}
     
-    private void OnMouseUp()
+    private void OnMouseDown()
     {
-        if (EventSystem.current.IsPointerOverGameObject())
+        if (EventSystem.current.IsPointerOverGameObject() || 
+            EventSystem.current.currentSelectedGameObject != null)
         {
             return;
         }
