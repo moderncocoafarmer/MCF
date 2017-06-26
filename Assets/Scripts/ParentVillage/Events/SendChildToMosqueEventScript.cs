@@ -8,7 +8,7 @@ public class SendChildToMosqueEventScript : InteractableBuildingEventScript
 {
     public override string Name
     {
-        get { return "Mosque  ( 3 Months )"; }
+        get { return "Mosque  ( 1 week )"; }
     }
 
     protected override string BuildingDescription { get { return "A spiritual place."; } }
@@ -28,7 +28,7 @@ public class SendChildToMosqueEventScript : InteractableBuildingEventScript
     protected override bool ChoicesEnabledImpl { get { return true; } }
 
     public override int CostToPerform { get { return 0; } }
-    protected override float LockTime { get { return TimeManager.SecondsPerYear * 0.25f; } }
+    protected override float LockTime { get { return TimeManager.SecondsPerMonth * 0.25f; } }
     protected override string OnShowAudioClipPath { get { return "Audio/Mosque"; } }
 
     public override BuildingType BuildingType { get { return BuildingType.Mosque; } }
