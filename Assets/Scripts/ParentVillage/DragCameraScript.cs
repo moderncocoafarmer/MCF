@@ -21,7 +21,7 @@ public class DragCameraScript : MonoBehaviour
 	}
 	
 	// Update is called once per frame
-	void Update ()
+	void LateUpdate ()
     {
         float ratio = maxCameraSize / Camera.main.orthographicSize;
 

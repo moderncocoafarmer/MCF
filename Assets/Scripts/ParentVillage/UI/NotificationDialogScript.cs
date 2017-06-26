@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Collider2D))]
@@ -50,6 +51,7 @@ public class NotificationDialogScript : MonoBehaviour
         {
             // Swipe to the left so lerp out the notification dialog
             direction = Direction.kOut;
+            EventSystem.current.SetSelectedGameObject(gameObject);
         }
 
         Lerp();
