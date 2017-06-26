@@ -25,7 +25,7 @@ public class DragCameraScript : MonoBehaviour
     {
         float ratio = maxCameraSize / Camera.main.orthographicSize;
 
-        if ((Input.touchCount < 2) && Input.GetMouseButton(0) && EventSystem.current.currentSelectedGameObject == null)
+        if ((Input.touchCount < 2) && Input.GetMouseButton(0)/* && EventSystem.current.currentSelectedGameObject == null*/)
         {
             if (!mouseDownLastFrame)
             {

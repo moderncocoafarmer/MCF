@@ -5,6 +5,12 @@ using UnityEngine.UI;
 
 public class ChildIndicatorUIScript : MonoBehaviour
 {
+    public BarScript Progress
+    {
+        get;
+        private set;
+    }
+
     private Child child;
     public Child Child
     {
@@ -18,9 +24,16 @@ public class ChildIndicatorUIScript : MonoBehaviour
     }
 
     private TextMesh childNameText;
+    private DataDialogScript dataDialog;
+
+    private void Start()
+    {
+        dataDialog = GameObject.Find(DataDialogScript.DataDialogName).GetComponent<DataDialogScript>();
+        //Progress = 
+    }
 
     private void OnMouseDown()
     {
-        GameObject.Find(DataDialogScript.DataDialogName).GetComponent<DataDialogScript>().Toggle(Child);
+        dataDialog.Toggle(Child);
     }
 }

@@ -46,18 +46,17 @@ public class NotificationDialogScript : MonoBehaviour
 	void Update ()
     {
         ShowEvent();
-
-        if (Input.touchCount > 0 && Input.GetTouch(0).deltaPosition.x < 0)
-        {
-            // Swipe to the left so lerp out the notification dialog
-            direction = Direction.kOut;
-            EventSystem.current.SetSelectedGameObject(gameObject);
-        }
-
         Lerp();
 
         if (direction == Direction.kStopped)
         {
+            if (Input.touchCount > 0 && Input.GetTouch(0).deltaPosition.x < 0)
+            {
+                // Swipe to the left so lerp out the notification dialog
+                direction = Direction.kOut;
+                EventSystem.current.SetSelectedGameObject(gameObject);
+            }
+
             timeShownFor += Time.deltaTime;
         }
 
