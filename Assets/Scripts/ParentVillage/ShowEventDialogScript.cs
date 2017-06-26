@@ -5,8 +5,8 @@ using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(Collider2D))]
 [RequireComponent(typeof(AudioSource))]
-public class ShowEventDialogScript : MonoBehaviour {
-
+public class ShowEventDialogScript : MonoBehaviour, IPointerClickHandler
+{
     public string EventName;
     public GameObject ChildIndicatorUI;
     public Transform FirstChildPosition;
@@ -38,11 +38,10 @@ public class ShowEventDialogScript : MonoBehaviour {
     {
         eventScript.Update();
 	}
-    
-    private void OnMouseDown()
+
+    public void OnPointerClick(PointerEventData eventData)
     {
-        if (EventSystem.current.IsPointerOverGameObject() || 
-            EventSystem.current.currentSelectedGameObject != null)
+        if (EventSystem.current.currentSelectedGameObject != null)
         {
             return;
         }
