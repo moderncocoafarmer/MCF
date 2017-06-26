@@ -1,9 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class DragCameraScript : MonoBehaviour {
-
+public class DragCameraScript : MonoBehaviour
+{
     bool mouseDownLastFrame = false;
     private Vector3 lastPosition;
     private float maxXTranslation = 0;
@@ -26,7 +25,7 @@ public class DragCameraScript : MonoBehaviour {
     {
         float ratio = maxCameraSize / Camera.main.orthographicSize;
 
-        if ((Input.touchCount < 2) && Input.GetMouseButton(0))
+        if ((Input.touchCount < 2) && Input.GetMouseButton(0) && EventSystem.current.currentSelectedGameObject == null)
         {
             if (!mouseDownLastFrame)
             {
