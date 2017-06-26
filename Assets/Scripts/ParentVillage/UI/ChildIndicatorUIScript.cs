@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(AudioSource))]
 public class ChildIndicatorUIScript : MonoBehaviour
 {
     private Child child;
@@ -20,6 +21,7 @@ public class ChildIndicatorUIScript : MonoBehaviour
     private TextMesh childNameText;
     private DataDialogScript dataDialog;
     private BarScript progressBar;
+    private AudioSource onCompleteSound;
 
     private void Awake()
     {
@@ -37,5 +39,10 @@ public class ChildIndicatorUIScript : MonoBehaviour
     {
         progressBar.Value += increment;
         progressBar.transform.localPosition += new Vector3(progressBar.gameObject.GetComponent<SpriteRenderer>().sprite.bounds.extents.x * increment / progressBar.Max, 0, 0);
+
+        if (progressBar.Value >= progressBar.Max)
+        {
+            onCompleteSound.Play();
+        }
     }
 }
