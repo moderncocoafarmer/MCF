@@ -108,6 +108,7 @@ public abstract class InteractableBuildingEventScript : EventScript
         {
             Timers[i] += TimeManager.DeltaTime;
             Tickers[i] += TimeManager.DeltaTime;
+            ChildIndicatorUIs[i].GetComponent<ChildIndicatorUIScript>().IncrementBar(100f * TimeManager.DeltaTime / LockTime);
 
             if (Tickers[i] >= 1)
             {
