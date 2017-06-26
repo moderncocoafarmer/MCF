@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(AudioSource))]
 public class ChildIndicatorUIScript : MonoBehaviour
 {
     private Child child;
@@ -21,13 +20,15 @@ public class ChildIndicatorUIScript : MonoBehaviour
     private TextMesh childNameText;
     private DataDialogScript dataDialog;
     private BarScript progressBar;
-    private AudioSource onCompleteSound;
+
+    public AudioSource onCompleteSound;
 
     private void Awake()
     {
         dataDialog = GameObject.Find(DataDialogScript.DataDialogName).GetComponent<DataDialogScript>();
         progressBar = transform.Find("ChildIndicatorPanel").GetComponentInChildren<BarScript>();
         progressBar.transform.localPosition -= new Vector3(progressBar.gameObject.GetComponent<SpriteRenderer>().sprite.bounds.extents.x, 0, 0);
+        onCompleteSound = GameObject.Find("InteractableBuildings").GetComponent<AudioSource>();
     }
 
     private void OnMouseDown()
