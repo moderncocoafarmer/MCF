@@ -70,4 +70,16 @@ public class DataDialogScript : MonoBehaviour
     {
         dataDialogUI.SetActive(false);
     }
+
+    public void Toggle(Child child)
+    {
+        if (dataDialogUI.activeSelf)
+        {
+            Hide();
+        }
+        else
+        {
+            Show(ChildManager.SelectedChild);
+        }
+    }
 }

@@ -21,6 +21,6 @@ public class ChildIndicatorUIScript : MonoBehaviour
 
     private void OnMouseDown()
     {
-        GameObject.Find(DataDialogScript.DataDialogName).GetComponent<DataDialogScript>().Show(Child);
+        GameObject.Find(DataDialogScript.DataDialogName).GetComponent<DataDialogScript>().Toggle(Child);
     }
 }
