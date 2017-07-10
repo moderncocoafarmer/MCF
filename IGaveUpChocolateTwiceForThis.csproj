@@ -145,6 +145,7 @@
     <Compile Include="Assets\Scripts\PlayVideoScript.cs" />
     <Compile Include="Assets\Scripts\QuitGameScript.cs" />
     <Compile Include="Assets\Scripts\ToolTipScript.cs" />
+    <Compile Include="Assets\Scripts\TransitionToSceneAsync.cs" />
     <Compile Include="Assets\Scripts\TransitionToSceneScript.cs" />
     <Compile Include="Assets\Scripts\YDragMoveScript.cs" />
   </ItemGroup>

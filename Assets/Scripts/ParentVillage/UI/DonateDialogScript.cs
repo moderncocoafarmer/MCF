@@ -16,6 +16,8 @@ public class DonateDialogScript : MonoBehaviour {
         donateDialogUI.SetActive(false);
         payButton = donateDialogUI.transform.FindChild("PayButton").gameObject;
         payButton.SetActive(false);
+
+        donateDialogUI.transform.FindChild("InputField").GetComponent<InputField>().onValueChanged.AddListener(ConvertToAmount); 
     }
 	
 	// Update is called once per frame
@@ -23,10 +25,9 @@ public class DonateDialogScript : MonoBehaviour {
 		
 	}
 
-    public void SetAmountToPay()
+    private void ConvertToAmount(string text)
     {
-        string textAmountToPay = donateDialogUI.transform.FindChild("InputField").FindChild("InputFieldText").GetComponent<Text>().text;
-        if (int.TryParse(textAmountToPay, out amountToPay))
+        if (int.TryParse(text, out amountToPay))
         {
             payButton.SetActive(amountToPay > 0);
         }
@@ -35,7 +36,7 @@ public class DonateDialogScript : MonoBehaviour {
             payButton.SetActive(false);
         }
     }
-
+    
     public void CloseAndPay()
     {
         // 770 CFA to 1 pound
