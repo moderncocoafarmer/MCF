@@ -48,6 +48,11 @@ public class ChildManager : MonoBehaviour
         // Add two children to begin with
         GiveBirthToChild();
         GiveBirthToChild();
+        GiveBirthToChild();
+        GiveBirthToChild();
+        GiveBirthToChild();
+        GiveBirthToChild();
+        GiveBirthToChild();
     }
 
     public static void GiveBirthToChild()
